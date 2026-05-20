@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import dbClient from '@/lib/couchdb';
 import bcrypt from 'bcrypt';
+import { sendTestEmail } from '@/lib/mail';
 
 /**
  * Interface defining the structure of the user document in CouchDB.
@@ -35,6 +36,7 @@ export async function POST(request: Request) {
 
         // 4. Insert the new user record into the database
         await db.insert(newUser as any); 
+        await sendTestEmail();
 
         return NextResponse.json({ message: 'User registered successfully' }, { status: 201 });
     } catch (error: any) {
