@@ -15,6 +15,11 @@ export default function AnimatedTailwindSection() {
    */
   const animationSteps = [
     {
+      text: "",
+      radius: "0px",
+    },
+
+    {
       text: "rounded",
       radius: "12px",
     },
@@ -22,11 +27,6 @@ export default function AnimatedTailwindSection() {
     {
       text: "rounded-[30px]",
       radius: "30px",
-    },
-
-    {
-      text: "",
-      radius: "0px",
     },
 
     {
@@ -100,7 +100,7 @@ export default function AnimatedTailwindSection() {
               deleteIndex - 1,
             );
 
-           setDisplayedCode(deletedClass);
+            setDisplayedCode(deletedClass);
 
             deleteIndex--;
 
@@ -121,16 +121,14 @@ export default function AnimatedTailwindSection() {
       {/* LEFT SIDE */}
       <div className="w-1/2 flex items-center justify-center border-r border-gray-800 p-10">
         <div className="w-full max-w-xl">
-<pre className="text-green-400 text-lg leading-8 whitespace-pre-wrap">
-{`<div className="`}
-<span className="text-yellow-300">
-  {displayedCode}
-</span>
-<span className="animate-pulse text-white">|</span>
-{`" overflow-hidden">
+          <pre className="text-green-400 text-lg leading-8 whitespace-pre-wrap">
+            {`<div className="`}
+            <span className="text-yellow-300">{displayedCode}</span>
+            <span className="animate-pulse text-white">|</span>
+            {`" overflow-hidden">
   <img src="/photo.jpg" />
 </div>`}
-</pre>
+          </pre>
         </div>
       </div>
 
