@@ -25,8 +25,8 @@ export default function AnimatedTailwindSection() {
     },
 
     {
-      text: "rounded-[",
-      radius: "12px",
+      text: "",
+      radius: "0px",
     },
 
     {
@@ -110,7 +110,7 @@ export default function AnimatedTailwindSection() {
               setCurrentStep((prev) => (prev + 1) % animationSteps.length);
             }
           }, 200);
-        }, 700);
+        }, 4000);
       }
     }, 400);
 
