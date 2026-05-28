@@ -54,8 +54,11 @@ export default function AnimatedTailwindSection() {
     const templateStart = `
 <div className="`;
 
-    const templateEnd = `" overflow-hidden">
-  <img src="/photo.jpg" />
+const templateEnd = `" overflow-hidden">
+  <img 
+    src="/photo.jpg"
+    className="max-h-[70vh] w-auto"
+  />
 </div>
 `;
 
@@ -117,20 +120,20 @@ export default function AnimatedTailwindSection() {
     return () => clearInterval(typingInterval);
   }, [currentStep]);
   return (
-    <section className="min-h-screen bg-black text-white flex">
-      {/* LEFT SIDE */}
-      <div className="w-1/2 flex items-center justify-center border-r border-gray-800 p-10">
-        <div className="w-full max-w-xl">
-          <pre className="text-green-400 text-lg leading-8 whitespace-pre-wrap">
-            {`<div className="`}
-            <span className="text-yellow-300">{displayedCode}</span>
-            <span className="animate-pulse text-white">|</span>
-            {`" overflow-hidden">
+<section className="flex-1 overflow-hidden bg-black text-white flex">
+  {/* LEFT SIDE */}
+  <div className="w-1/2 flex items-center justify-center border-r border-gray-800 p-6">
+    <div className="w-full max-w-xl">
+      <pre className="text-green-400 text-base leading-7 whitespace-pre-wrap">
+        {`<div className="`}
+        <span className="text-yellow-300">{displayedCode}</span>
+        <span className="animate-pulse text-white">|</span>
+        {`" overflow-hidden">
   <img src="/photo.jpg" />
 </div>`}
-          </pre>
-        </div>
-      </div>
+      </pre>
+    </div>
+  </div>
 
       {/* RIGHT SIDE */}
       <div className="w-1/2 flex items-center justify-center p-10">
