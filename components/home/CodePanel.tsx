@@ -81,14 +81,32 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
   }, []);
 
   useEffect(() => {
-  if (codeContainerRef.current) {
-    codeContainerRef.current.scrollTop =
-      codeContainerRef.current.scrollHeight;
-  }
-}, [displayedCode]);
+    if (codeContainerRef.current) {
+      codeContainerRef.current.scrollTop =
+        codeContainerRef.current.scrollHeight;
+    }
+  }, [displayedCode]);
+
+  const stageLabel = {
+    junior: "Junior Developer",
+    middle: "Middle Developer",
+    senior: "Senior Developer",
+  }[stage];
+
+  const stageColor = {
+    junior: "text-yellow-400",
+    middle: "text-green-400",
+    senior: "text-sky-400",
+  }[stage];
 
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
+      <div
+        className={`mb-3 text-sm font-semibold uppercase tracking-wider ${stageColor}`}
+      >
+        {stageLabel}
+      </div>
+
       {/* TOP BAR */}
       <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
         <div className="h-3 w-3 rounded-full bg-red-500" />
