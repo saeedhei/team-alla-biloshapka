@@ -49,8 +49,11 @@ type CodePanelProps = {
   onStageChange: (stage: string) => void;
 };
 
+type Stage = "junior" | "middle" | "senior";
+
 export default function CodePanel({ onStageChange }: CodePanelProps) {
   const [displayedCode, setDisplayedCode] = useState("");
+  const [stage, setStage] = useState<Stage>("junior");
 
   useEffect(() => {
     let index = 0;
