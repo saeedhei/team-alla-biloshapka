@@ -56,17 +56,22 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
   const codeContainerRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("junior");
 
+const MIDDLE_STAGE_INDEX = code.indexOf("// Middle upgrade");
+const SENIOR_STAGE_INDEX = code.indexOf("// Senior upgrade");
+
   useEffect(() => {
     let index = 0;
 
     const interval = setInterval(() => {
       setDisplayedCode(code.slice(0, index));
 
-      if (index > 40) {
+      if (index > MIDDLE_STAGE_INDEX) {
+        setStage("middle");
         onStageChange("middle");
       }
 
-      if (index > 70) {
+      if (index > SENIOR_STAGE_INDEX) {
+        setStage("senior");
         onStageChange("senior");
       }
 
