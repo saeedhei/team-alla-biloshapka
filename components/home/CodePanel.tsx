@@ -2,14 +2,54 @@
 
 import { useEffect, useState } from "react";
 
-const code = `<div
-  className="rounded-none"
-  className="bg-zinc-900"
-  className="shadow-none"
+const code = `
+<section
+  className="bg-white"
 >
+
+  <button
+    className="rounded-none"
+  />
+
+  <div
+    className="shadow-none"
+  />
+
+  // Middle upgrade
+
+  <button
+    className="rounded-xl"
+  />
+
+  <div
+    className="bg-blue-50"
+  />
+
+  <div
+    className="shadow-lg"
+  />
+
+  // Senior upgrade
+
+  <section
+    className="bg-gradient-to-br"
+  />
+
+  <div
+    className="backdrop-blur"
+  />
+
+  <div
+    className="shadow-2xl"
+  />
+</section>
 `;
 
-export default function CodePanel() {
+type CodePanelProps = {
+  onStageChange: (stage: string) => void;
+};
+
+export default function CodePanel({ onStageChange }: CodePanelProps) {
   const [displayedCode, setDisplayedCode] = useState("");
 
   useEffect(() => {
@@ -18,43 +58,41 @@ export default function CodePanel() {
     const interval = setInterval(() => {
       setDisplayedCode(code.slice(0, index));
 
+      if (index > 40) {
+        onStageChange("middle");
+      }
+
+      if (index > 70) {
+        onStageChange("senior");
+      }
+
       index++;
 
       if (index > code.length) {
         clearInterval(interval);
       }
-    }, 65);
+    }, 180);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
-
       {/* TOP BAR */}
       <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
-
         <div className="h-3 w-3 rounded-full bg-red-500" />
         <div className="h-3 w-3 rounded-full bg-yellow-500" />
         <div className="h-3 w-3 rounded-full bg-green-500" />
-
       </div>
 
       {/* CODE AREA */}
       <div className="p-6">
-
         <pre className="whitespace-pre-wrap font-mono text-lg text-green-400">
-
           {displayedCode}
 
-          <span className="animate-pulse text-white">
-            █
-          </span>
-
+          <span className="animate-pulse text-white">█</span>
         </pre>
-
       </div>
-
     </div>
   );
 }
