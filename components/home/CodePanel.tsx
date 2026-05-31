@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const code = `
 <section
@@ -53,6 +53,7 @@ type Stage = "junior" | "middle" | "senior";
 
 export default function CodePanel({ onStageChange }: CodePanelProps) {
   const [displayedCode, setDisplayedCode] = useState("");
+  const codeContainerRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("junior");
 
   useEffect(() => {
@@ -79,6 +80,13 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+  if (codeContainerRef.current) {
+    codeContainerRef.current.scrollTop =
+      codeContainerRef.current.scrollHeight;
+  }
+}, [displayedCode]);
+
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
       {/* TOP BAR */}
@@ -89,8 +97,8 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
       </div>
 
       {/* CODE AREA */}
-      <div className="p-6">
-        <pre className="whitespace-pre-wrap font-mono text-lg text-green-400">
+      <div ref={codeContainerRef} className="max-h-[70vh] overflow-y-auto p-4">
+        <pre className="whitespace-pre-wrap font-mono text-sm leading-4 text-green-400">
           {displayedCode}
 
           <span className="animate-pulse text-white">█</span>
