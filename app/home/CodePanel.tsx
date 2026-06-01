@@ -1,49 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { aboutAnimationScript } from "./animation/aboutAnimationScript";
 
-const code = `
-<section
-  className="bg-white"
->
-
-  <button
-    className="rounded-none"
-  />
-
-  <div
-    className="shadow-none"
-  />
-
-  // Middle upgrade
-
-  <button
-    className="rounded-xl"
-  />
-
-  <div
-    className="bg-blue-50"
-  />
-
-  <div
-    className="shadow-lg"
-  />
-
-  // Senior upgrade
-
-  <section
-    className="bg-gradient-to-br"
-  />
-
-  <div
-    className="backdrop-blur"
-  />
-
-  <div
-    className="shadow-2xl"
-  />
-</section>
-`;
+const fullCode = aboutAnimationScript;
 
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
@@ -56,14 +16,14 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
   const codeContainerRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("junior");
 
-const MIDDLE_STAGE_INDEX = code.indexOf("// Middle upgrade");
-const SENIOR_STAGE_INDEX = code.indexOf("// Senior upgrade");
+const MIDDLE_STAGE_INDEX = fullCode.indexOf("// Middle upgrade");
+const SENIOR_STAGE_INDEX = fullCode.indexOf("// Senior upgrade");
 
   useEffect(() => {
     let index = 0;
 
     const interval = setInterval(() => {
-      setDisplayedCode(code.slice(0, index));
+      setDisplayedCode(fullCode.slice(0, index));
 
       if (index > MIDDLE_STAGE_INDEX) {
         setStage("middle");
@@ -77,7 +37,7 @@ const SENIOR_STAGE_INDEX = code.indexOf("// Senior upgrade");
 
       index++;
 
-      if (index > code.length) {
+      if (index > fullCode.length) {
         clearInterval(interval);
       }
     }, 50);
