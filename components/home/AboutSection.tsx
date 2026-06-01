@@ -24,13 +24,15 @@ export default function AboutSection({
     <section
       className={`${aboutStyles.section.base} ${aboutStyles.section[currentStage]}`}
     >
-      <p className={aboutStyles.eyebrow}>About Us</p>
+      {showEyebrow && <p className={aboutStyles.eyebrow}>About Us</p>}
 
-      <h1
-        className={`${aboutStyles.title.base} ${aboutStyles.title[currentStage]}`}
-      >
-        We build digital products for growing companies
-      </h1>
+      {showTitle && (
+        <h1
+          className={`${aboutStyles.title.base} ${aboutStyles.title[currentStage]}`}
+        >
+          We build digital products for growing companies
+        </h1>
+      )}
 
       <p
         className={`${aboutStyles.description.base} ${aboutStyles.description[currentStage]}`}
