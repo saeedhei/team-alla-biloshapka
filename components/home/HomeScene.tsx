@@ -6,6 +6,7 @@ import VisualPanel from "./VisualPanel";
 
 export default function HomeScene() {
   const [stage, setStage] = useState("junior");
+  const [animationStep, setAnimationStep] = useState(0);
 
   return (
     <section className="flex-1 bg-zinc-950 text-white">
