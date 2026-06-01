@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { aboutAnimationScript } from "./animation/aboutAnimationScript";
+import { ABOUT_ANIMATION_EVENTS } from "./animation/aboutAnimationEvents";
 
 const fullCode = aboutAnimationScript;
 
@@ -16,8 +17,8 @@ export default function CodePanel({ onStageChange }: CodePanelProps) {
   const codeContainerRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("junior");
 
-const MIDDLE_STAGE_INDEX = fullCode.indexOf("// Middle upgrade");
-const SENIOR_STAGE_INDEX = fullCode.indexOf("// Senior upgrade");
+const MIDDLE_STAGE_INDEX = fullCode.indexOf("// MIDDLE");
+const SENIOR_STAGE_INDEX = fullCode.indexOf("// SENIOR");
 
   useEffect(() => {
     let index = 0;
