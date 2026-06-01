@@ -8,23 +8,42 @@ const fullCode = aboutAnimationScript;
 
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
+  onAnimationStepChange: (step: number) => void;
 };
 
 type Stage = "junior" | "middle" | "senior";
 
-export default function CodePanel({ onStageChange }: CodePanelProps) {
+export default function CodePanel({
+  onStageChange,
+  onAnimationStepChange,
+}: CodePanelProps) {
   const [displayedCode, setDisplayedCode] = useState("");
   const codeContainerRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("junior");
 
-const MIDDLE_STAGE_INDEX = fullCode.indexOf("// MIDDLE");
-const SENIOR_STAGE_INDEX = fullCode.indexOf("// SENIOR");
+  const MIDDLE_STAGE_INDEX = fullCode.indexOf("// MIDDLE");
+  const SENIOR_STAGE_INDEX = fullCode.indexOf("// SENIOR");
+
+  const TITLE_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.TITLE);
+  const ABOUT_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.ABOUT);
+  const BUTTON_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.BUTTON);
+  const CARDS_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.CARDS);
 
   useEffect(() => {
     let index = 0;
 
     const interval = setInterval(() => {
       setDisplayedCode(fullCode.slice(0, index));
+
+      if (index > CARDS_INDEX) {
+        onAnimationStepChange(4);
+      } else if (index > BUTTON_INDEX) {
+        onAnimationStepChange(3);
+      } else if (index > ABOUT_INDEX) {
+        onAnimationStepChange(2);
+      } else if (index > TITLE_INDEX) {
+        onAnimationStepChange(1);
+      }
 
       if (index > MIDDLE_STAGE_INDEX) {
         setStage("middle");

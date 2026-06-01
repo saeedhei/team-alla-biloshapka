@@ -13,7 +13,10 @@ export default function HomeScene() {
       <div className="mx-auto flex h-[calc(100vh-128px)] max-w-7xl flex-col overflow-hidden lg:flex-row">
         {/* LEFT SIDE */}
         <div className="flex w-full items-center justify-center border-b border-zinc-800 p-6 lg:w-1/4 lg:border-b-0 lg:border-r">
-          <CodePanel onStageChange={(newStage) => setStage(newStage)} />
+          <CodePanel
+            onStageChange={(newStage) => setStage(newStage)}
+            onAnimationStepChange={(newStep) => setAnimationStep(newStep)}
+          />
         </div>
 
         {/* RIGHT SIDE */}
