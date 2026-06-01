@@ -2,11 +2,17 @@ import { aboutStyles } from "./aboutStyles";
 
 type AboutSectionProps = {
   stage: string;
+  animationStep: number;
 };
 
-export default function AboutSection({ stage }: AboutSectionProps) {
+export default function AboutSection({
+  stage,
+  animationStep,
+}: AboutSectionProps) {
   const currentStage =
     stage === "junior" ? "junior" : stage === "middle" ? "middle" : "senior";
+
+    void animationStep;
 
   return (
     <section
