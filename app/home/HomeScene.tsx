@@ -12,7 +12,7 @@ export default function HomeScene() {
     <section className="flex-1 bg-zinc-950 text-white">
       <div className="mx-auto flex h-[calc(100vh-128px)] max-w-7xl flex-col overflow-hidden lg:flex-row">
         {/* LEFT SIDE */}
-        <div className="flex w-full items-center justify-center border-b border-zinc-800 p-6 lg:w-1/4 lg:border-b-0 lg:border-r">
+        <div className="flex w-full items-center justify-center border-b border-zinc-800 p-4 lg:w-1/3 lg:border-b-0 lg:border-r">
           <CodePanel
             onStageChange={(newStage) => setStage(newStage)}
             onAnimationStepChange={(newStep) => setAnimationStep(newStep)}
@@ -20,7 +20,7 @@ export default function HomeScene() {
         </div>
 
         {/* RIGHT SIDE */}
-        <div className="flex w-full items-center justify-center p-6 lg:w-3/4">
+        <div className="flex w-full items-center justify-center p-2 lg:w-2/3">
           <VisualPanel stage={stage} animationStep={animationStep} />
         </div>
       </div>

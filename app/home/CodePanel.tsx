@@ -13,6 +13,26 @@ type CodePanelProps = {
 
 type Stage = "junior" | "middle" | "senior";
 
+function renderHighlightedCode(code: string) {
+  const parts = code.split(/(className="[^"]*")/g);
+
+  return parts.map((part, index) => {
+    if (part.startsWith('className="')) {
+      return (
+        <span key={index} className="text-sky-400">
+          {part}
+        </span>
+      );
+    }
+
+    return (
+      <span key={index} className="text-green-400">
+        {part}
+      </span>
+    );
+  });
+}
+
 export default function CodePanel({
   onStageChange,
   onAnimationStepChange,
@@ -101,8 +121,8 @@ export default function CodePanel({
 
       {/* CODE AREA */}
       <div ref={codeContainerRef} className="max-h-[70vh] overflow-y-auto p-4">
-        <pre className="whitespace-pre-wrap font-mono text-sm leading-4 text-green-400">
-          {displayedCode}
+        <pre className="whitespace-pre-wrap font-mono text-sm leading-4">
+          {renderHighlightedCode(displayedCode)}
 
           <span className="animate-pulse text-white">█</span>
         </pre>
