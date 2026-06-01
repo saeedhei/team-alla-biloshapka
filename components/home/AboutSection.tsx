@@ -12,7 +12,13 @@ export default function AboutSection({
   const currentStage =
     stage === "junior" ? "junior" : stage === "middle" ? "middle" : "senior";
 
-    void animationStep;
+  const showEyebrow = animationStep >= 1;
+  const showTitle = animationStep >= 2;
+  const showDescription = animationStep >= 3;
+  const showButton = animationStep >= 4;
+  const showCard1 = animationStep >= 5;
+  const showCard2 = animationStep >= 6;
+  const showCard3 = animationStep >= 7;
 
   return (
     <section
