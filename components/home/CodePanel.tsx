@@ -80,7 +80,7 @@ const SENIOR_STAGE_INDEX = code.indexOf("// Senior upgrade");
       if (index > code.length) {
         clearInterval(interval);
       }
-    }, 180);
+    }, 50);
 
     return () => clearInterval(interval);
   }, []);
