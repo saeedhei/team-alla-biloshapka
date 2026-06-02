@@ -9,6 +9,7 @@ const fullCode = aboutAnimationScript;
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
   onAnimationStepChange: (step: number) => void;
+  onVisualStyleStepChange: (step: number) => void;
 };
 
 type Stage = "junior" | "middle" | "senior";
@@ -117,6 +118,7 @@ function getNextTypingIndex(code: string, currentIndex: number) {
 export default function CodePanel({
   onStageChange,
   onAnimationStepChange,
+  onVisualStyleStepChange,
 }: CodePanelProps) {
   const [displayedCode, setDisplayedCode] = useState("");
   const codeContainerRef = useRef<HTMLDivElement>(null);

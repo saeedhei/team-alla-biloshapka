@@ -3,11 +3,13 @@ import { aboutStyles } from "./aboutStyles";
 type AboutSectionProps = {
   stage: string;
   animationStep: number;
+  visualStyleStep: number;
 };
 
 export default function AboutSection({
   stage,
   animationStep,
+  visualStyleStep,
 }: AboutSectionProps) {
   const currentStage =
     stage === "junior" ? "junior" : stage === "middle" ? "middle" : "senior";
@@ -17,6 +19,12 @@ export default function AboutSection({
   const showDescription = animationStep >= 3;
   const showButton = animationStep >= 4;
   const showPhoto = animationStep >= 5;
+
+  const titleStyleStep = visualStyleStep;
+  const descriptionStyleStep = visualStyleStep;
+  const buttonStyleStep = visualStyleStep;
+  const photoStyleStep = visualStyleStep;
+  const backgroundStyleStep = visualStyleStep;
 
   return (
     <section

@@ -7,6 +7,7 @@ import VisualPanel from "./VisualPanel";
 export default function HomeScene() {
   const [stage, setStage] = useState("junior");
   const [animationStep, setAnimationStep] = useState(0);
+  const [visualStyleStep, setVisualStyleStep] = useState(0);
 
   return (
     <section className="flex-1 bg-zinc-950 text-white">
@@ -16,12 +17,17 @@ export default function HomeScene() {
           <CodePanel
             onStageChange={(newStage) => setStage(newStage)}
             onAnimationStepChange={(newStep) => setAnimationStep(newStep)}
+            onVisualStyleStepChange={(newStep) => setVisualStyleStep(newStep)}
           />
         </div>
 
         {/* RIGHT SIDE */}
         <div className="flex w-full items-center justify-center p-2 lg:w-2/3">
-          <VisualPanel stage={stage} animationStep={animationStep} />
+          <VisualPanel
+            stage={stage}
+            animationStep={animationStep}
+            visualStyleStep={visualStyleStep}
+          />
         </div>
       </div>
     </section>
