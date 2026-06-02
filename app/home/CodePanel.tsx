@@ -44,10 +44,13 @@ export default function CodePanel({
   const MIDDLE_STAGE_INDEX = fullCode.indexOf("// MIDDLE");
   const SENIOR_STAGE_INDEX = fullCode.indexOf("// SENIOR");
 
-  const TITLE_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.TITLE);
   const ABOUT_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.ABOUT);
+  const TITLE_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.TITLE);
+  const DESCRIPTION_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.DESCRIPTION,
+  );
   const BUTTON_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.BUTTON);
-  const CARDS_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.CARDS);
+  const PHOTO_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.PHOTO);
 
   useEffect(() => {
     let index = 0;
@@ -55,13 +58,15 @@ export default function CodePanel({
     const interval = setInterval(() => {
       setDisplayedCode(fullCode.slice(0, index));
 
-      if (index > CARDS_INDEX) {
+      if (PHOTO_INDEX !== -1 && index > PHOTO_INDEX) {
+        onAnimationStepChange(5);
+      } else if (BUTTON_INDEX !== -1 && index > BUTTON_INDEX) {
         onAnimationStepChange(4);
-      } else if (index > BUTTON_INDEX) {
+      } else if (DESCRIPTION_INDEX !== -1 && index > DESCRIPTION_INDEX) {
         onAnimationStepChange(3);
-      } else if (index > ABOUT_INDEX) {
+      } else if (TITLE_INDEX !== -1 && index > TITLE_INDEX) {
         onAnimationStepChange(2);
-      } else if (index > TITLE_INDEX) {
+      } else if (ABOUT_INDEX !== -1 && index > ABOUT_INDEX) {
         onAnimationStepChange(1);
       }
 

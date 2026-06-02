@@ -14,93 +14,55 @@ export default function AboutSection({
 
   const showTitle = animationStep >= 1;
   const showEyebrow = animationStep >= 2;
-  const showDescription = animationStep >= 2;
-  const showButton = animationStep >= 3;
-  const showCards = animationStep >= 4;
+  const showDescription = animationStep >= 3;
+  const showButton = animationStep >= 4;
+  const showPhoto = animationStep >= 5;
 
   return (
     <section
       className={`${aboutStyles.section.base} ${aboutStyles.section[currentStage]}`}
     >
-      {showEyebrow && <p className={aboutStyles.eyebrow}>About Us</p>}
+      <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
+        <div>
+          {showEyebrow && <p className={aboutStyles.eyebrow}>About Us</p>}
 
-      {showTitle && (
-        <h1
-          className={`${aboutStyles.title.base} ${aboutStyles.title[currentStage]}`}
-        >
-          We build digital products for growing companies
-        </h1>
-      )}
-
-      {showDescription && (
-        <p
-          className={`${aboutStyles.description.base} ${aboutStyles.description[currentStage]}`}
-        >
-          We are a tech development company that helps businesses create modern
-          websites, web applications, and simple digital tools for everyday
-          work.
-        </p>
-      )}
-
-      {showButton && (
-        <button
-          className={`${aboutStyles.button.base} ${aboutStyles.button[currentStage]}`}
-        >
-          Start a project
-        </button>
-      )}
-
-      {showCards && (
-        <div className={aboutStyles.cardsGrid}>
-          <div
-            className={`${aboutStyles.card.base} ${aboutStyles.card[currentStage]}`}
-          >
-            <h2
-              className={`${aboutStyles.cardTitle.base} ${aboutStyles.cardTitle[currentStage]}`}
+          {showTitle && (
+            <h1
+              className={`${aboutStyles.title.base} ${aboutStyles.title[currentStage]}`}
             >
-              Websites
-            </h2>
+              We build digital products for growing companies
+            </h1>
+          )}
 
+          {showDescription && (
             <p
-              className={`${aboutStyles.cardText.base} ${aboutStyles.cardText[currentStage]}`}
+              className={`${aboutStyles.description.base} ${aboutStyles.description[currentStage]}`}
             >
-              Clean and simple company websites.
+              We are a tech development company that helps businesses create
+              modern websites, web applications, and simple digital tools for
+              everyday work.
             </p>
-          </div>
+          )}
 
-          <div
-            className={`${aboutStyles.card.base} ${aboutStyles.card[currentStage]}`}
-          >
-            <h2
-              className={`${aboutStyles.cardTitle.base} ${aboutStyles.cardTitle[currentStage]}`}
+          {showButton && (
+            <button
+              className={`${aboutStyles.button.base} ${aboutStyles.button[currentStage]}`}
             >
-              Web Apps
-            </h2>
-
-            <p
-              className={`${aboutStyles.cardText.base} ${aboutStyles.cardText[currentStage]}`}
-            >
-              Useful tools for clients and teams.
-            </p>
-          </div>
-
-          <div
-            className={`${aboutStyles.card.base} ${aboutStyles.card[currentStage]}`}
-          >
-            <h2
-              className={`${aboutStyles.cardTitle.base} ${aboutStyles.cardTitle[currentStage]}`}
-            >
-              Support
-            </h2>
-
-            <p
-              className={`${aboutStyles.cardText.base} ${aboutStyles.cardText[currentStage]}`}
-            >
-              Help with improving existing products.
-            </p>
-          </div>
+              Start a project
+            </button>
+          )}
         </div>
-      )}
+
+        {showPhoto && (
+          <div className="overflow-hidden rounded-2xl border border-white/20">
+            <img
+              src="/about_us.png"
+              alt="Team working on a digital product"
+              className="h-80 w-full object-cover"
+            />
+          </div>
+        )}
+      </div>
     </section>
   );
 }

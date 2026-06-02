@@ -1,6 +1,6 @@
 export const aboutStyles = {
   section: {
-    base: "w-full p-8 text-zinc-900 transition-all duration-1000",
+    base: "min-h-[460px] w-full p-8 text-zinc-900 transition-all duration-1000",
     junior: "bg-white",
     middle: "bg-blue-50 rounded-2xl shadow-xl",
     senior:
