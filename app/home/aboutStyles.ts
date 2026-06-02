@@ -7,7 +7,8 @@ export const aboutStyles = {
       "rounded-3xl bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white shadow-2xl",
   },
 
-  eyebrow: "mb-2 text-sm font-medium text-zinc-500 transition-all duration-1000",
+  eyebrow:
+    "mb-2 text-sm font-medium text-zinc-500 transition-all duration-1000",
 
   title: {
     base: "mb-4 text-4xl font-bold transition-all duration-1000",
@@ -24,10 +25,10 @@ export const aboutStyles = {
   },
 
   button: {
-    base: "mb-8 px-5 py-3 text-white transition-all duration-1000",
-    junior: "rounded bg-zinc-900",
-    middle: "rounded-xl bg-blue-600 shadow-lg",
-    senior: "rounded-2xl bg-cyan-500 shadow-2xl shadow-cyan-500/30",
+    base: "mb-8 block px-5 py-3 text-white transition-all duration-1000",
+    junior: "mx-auto rounded bg-zinc-900",
+    middle: "ml-0 rounded-xl bg-blue-600 shadow-lg",
+    senior: "ml-0 rounded-2xl bg-cyan-500 shadow-2xl shadow-cyan-500/30",
   },
 
   cardsGrid: "grid gap-4 md:grid-cols-3",

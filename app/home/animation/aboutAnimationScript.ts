@@ -14,9 +14,9 @@ export const aboutAnimationScript = `
       websites, web applications, and simple digital tools for everyday work.
     </p>
 
-    <button className="about-button">
-      Start a project
-    </button>
+<button className="about-button mx-auto block">
+  Start a project
+</button>
   </div>
 
   <img className="about-photo" src="/about_us.png" />
@@ -35,9 +35,9 @@ export const aboutAnimationScript = `
       websites, web applications, and simple digital tools for everyday work.
     </p>
 
-    <button className="about-button rounded-xl bg-cyan-500">
-      Start a project
-    </button>
+<button className="about-button ml-0 block rounded-xl bg-cyan-500">
+  Start a project
+</button>
   </div>
 
   <img className="about-photo rounded-2xl object-cover" src="/about_us.png" />
@@ -45,13 +45,18 @@ export const aboutAnimationScript = `
 
 // SENIOR
 
-<section className="about-section grid grid-cols-[1.2fr_1fr] gap-10 bg-gradient-to-br from-blue-950 to-indigo-900 rounded-[2rem]">
+<section className="about-section grid grid-cols-[1.2fr_1fr] gap-10 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 rounded-[2rem]">
   <div className="about-content">
-    <h1 className="about-title text-6xl font-extrabold tracking-tight">
+    <h1 className="about-title text-white drop-shadow-xl">
       We build digital products for growing companies
     </h1>
 
-    <button className="about-button rounded-2xl bg-cyan-400 shadow-cyan-400/40">
+    <p className="about-description text-blue-100 leading-8">
+      We are a tech development company that helps businesses create modern
+      websites, web applications, and simple digital tools for everyday work.
+    </p>
+
+    <button className="about-button rounded-2xl bg-cyan-500 shadow-cyan-500/30">
       Start a project
     </button>
   </div>
