@@ -33,6 +33,28 @@ function renderHighlightedCode(code: string) {
   });
 }
 
+function getNextTypingIndex(code: string, currentIndex: number) {
+  const previousChar = code[currentIndex - 1];
+
+  if (previousChar !== ">") {
+    return currentIndex + 1;
+  }
+
+  const nextTagIndex = code.indexOf("<", currentIndex);
+
+  if (nextTagIndex === -1) {
+    return currentIndex + 1;
+  }
+
+  const textContent = code.slice(currentIndex, nextTagIndex);
+
+  if (!textContent.trim()) {
+    return currentIndex + 1;
+  }
+
+  return nextTagIndex;
+}
+
 export default function CodePanel({
   onStageChange,
   onAnimationStepChange,
@@ -80,7 +102,7 @@ export default function CodePanel({
         onStageChange("senior");
       }
 
-      index++;
+      index = getNextTypingIndex(fullCode, index);
 
       if (index > fullCode.length) {
         clearInterval(interval);
