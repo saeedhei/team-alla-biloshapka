@@ -14,12 +14,71 @@ type CodePanelProps = {
 type Stage = "junior" | "middle" | "senior";
 
 function renderHighlightedCode(code: string) {
-  const parts = code.split(/(className="[^"]*")/g);
+  const parts = code.split(
+    /(className="[^"]*"|src="[^"]*"|alt="[^"]*"|<\/?[a-zA-Z][a-zA-Z0-9]*|\/?>|\/\/[^\n]*)/g,
+  );
 
   return parts.map((part, index) => {
-    if (part.startsWith('className="')) {
+    if (!part) return null;
+
+    if (part.startsWith("//")) {
       return (
-        <span key={index} className="text-sky-400">
+        <span key={index} className="text-green-400">
+          {part}
+        </span>
+      );
+    }
+
+    if (/^<\/?[a-zA-Z]/.test(part)) {
+      return (
+        <span key={index} className="text-fuchsia-400">
+          {part}
+        </span>
+      );
+    }
+
+    if (part.startsWith('className="')) {
+      const classValue = part.slice('className="'.length, -1);
+
+      return (
+        <span key={index}>
+          <span className="text-slate-300">className=</span>
+          <span className="text-slate-400">"</span>
+          <span className="text-sky-400">{classValue}</span>
+          <span className="text-slate-400">"</span>
+        </span>
+      );
+    }
+
+    if (part.startsWith('src="')) {
+      const srcValue = part.slice('src="'.length, -1);
+
+      return (
+        <span key={index}>
+          <span className="text-slate-300">src=</span>
+          <span className="text-slate-400">"</span>
+          <span className="text-amber-300">{srcValue}</span>
+          <span className="text-slate-400">"</span>
+        </span>
+      );
+    }
+
+    if (part.startsWith('alt="')) {
+      const altValue = part.slice('alt="'.length, -1);
+
+      return (
+        <span key={index}>
+          <span className="text-slate-300">alt=</span>
+          <span className="text-slate-400">"</span>
+          <span className="text-amber-300">{altValue}</span>
+          <span className="text-slate-400">"</span>
+        </span>
+      );
+    }
+
+    if (part === ">" || part === "/>") {
+      return (
+        <span key={index} className="text-slate-300">
           {part}
         </span>
       );
