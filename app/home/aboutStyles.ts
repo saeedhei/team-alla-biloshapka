@@ -2,32 +2,32 @@ export const aboutStyles = {
   section: {
     base: "min-h-[460px] w-full p-8 text-zinc-900 transition-all duration-1000",
     junior: "bg-white",
-    middle: "bg-blue-50 rounded-2xl shadow-xl",
+    middle: "rounded-2xl bg-blue-950 text-white shadow-xl",
     senior:
-      "rounded-3xl bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 shadow-2xl",
+      "rounded-3xl bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white shadow-2xl",
   },
 
-  eyebrow: "mb-2 text-sm font-medium text-zinc-500",
+  eyebrow: "mb-2 text-sm font-medium text-zinc-500 transition-all duration-1000",
 
   title: {
     base: "mb-4 text-4xl font-bold transition-all duration-1000",
-    junior: "",
-    middle: "",
-    senior: "text-white",
+    junior: "text-zinc-900",
+    middle: "text-4xl text-white",
+    senior: "text-4xl text-white",
   },
 
   description: {
     base: "mb-6 max-w-xl text-base transition-all duration-1000",
     junior: "text-zinc-600",
-    middle: "text-zinc-600",
-    senior: "text-blue-100",
+    middle: "text-lg leading-8 text-blue-100",
+    senior: "text-lg leading-8 text-blue-100",
   },
 
   button: {
     base: "mb-8 px-5 py-3 text-white transition-all duration-1000",
     junior: "rounded bg-zinc-900",
     middle: "rounded-xl bg-blue-600 shadow-lg",
-    senior: "rounded-2xl bg-cyan-500 shadow-2xl",
+    senior: "rounded-2xl bg-cyan-500 shadow-2xl shadow-cyan-500/30",
   },
 
   cardsGrid: "grid gap-4 md:grid-cols-3",

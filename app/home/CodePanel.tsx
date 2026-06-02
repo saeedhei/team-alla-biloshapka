@@ -135,6 +135,22 @@ export default function CodePanel({
   const BUTTON_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.BUTTON);
   const PHOTO_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.PHOTO);
 
+  const UPDATE_BACKGROUND_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.UPDATE_BACKGROUND,
+  );
+  const UPDATE_TITLE_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.UPDATE_TITLE,
+  );
+  const UPDATE_DESCRIPTION_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.UPDATE_DESCRIPTION,
+  );
+  const UPDATE_BUTTON_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.UPDATE_BUTTON,
+  );
+  const UPDATE_PHOTO_INDEX = fullCode.indexOf(
+    ABOUT_ANIMATION_EVENTS.UPDATE_PHOTO,
+  );
+
   useEffect(() => {
     let index = 0;
 
@@ -153,6 +169,24 @@ export default function CodePanel({
         onAnimationStepChange(1);
       }
 
+      if (UPDATE_PHOTO_INDEX !== -1 && index > UPDATE_PHOTO_INDEX) {
+        onVisualStyleStepChange(5);
+      } else if (UPDATE_BUTTON_INDEX !== -1 && index > UPDATE_BUTTON_INDEX) {
+        onVisualStyleStepChange(4);
+      } else if (
+        UPDATE_DESCRIPTION_INDEX !== -1 &&
+        index > UPDATE_DESCRIPTION_INDEX
+      ) {
+        onVisualStyleStepChange(3);
+      } else if (UPDATE_TITLE_INDEX !== -1 && index > UPDATE_TITLE_INDEX) {
+        onVisualStyleStepChange(2);
+      } else if (
+        UPDATE_BACKGROUND_INDEX !== -1 &&
+        index > UPDATE_BACKGROUND_INDEX
+      ) {
+        onVisualStyleStepChange(1);
+      }
+
       if (index > MIDDLE_STAGE_INDEX) {
         setStage("middle");
         onStageChange("middle");
@@ -169,7 +203,6 @@ export default function CodePanel({
         clearInterval(interval);
       }
     }, 50);
-
     return () => clearInterval(interval);
   }, []);
 

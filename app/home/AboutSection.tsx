@@ -11,8 +11,6 @@ export default function AboutSection({
   animationStep,
   visualStyleStep,
 }: AboutSectionProps) {
-  const currentStage =
-    stage === "junior" ? "junior" : stage === "middle" ? "middle" : "senior";
 
   const showTitle = animationStep >= 1;
   const showEyebrow = animationStep >= 2;
@@ -20,15 +18,15 @@ export default function AboutSection({
   const showButton = animationStep >= 4;
   const showPhoto = animationStep >= 5;
 
-  const titleStyleStep = visualStyleStep;
-  const descriptionStyleStep = visualStyleStep;
-  const buttonStyleStep = visualStyleStep;
-  const photoStyleStep = visualStyleStep;
-  const backgroundStyleStep = visualStyleStep;
+  const backgroundStage = visualStyleStep >= 1 ? "middle" : "junior";
+  const titleStage = visualStyleStep >= 2 ? "middle" : "junior";
+  const descriptionStage = visualStyleStep >= 3 ? "middle" : "junior";
+  const buttonStage = visualStyleStep >= 4 ? "middle" : "junior";
+  const photoStage = visualStyleStep >= 5 ? "middle" : "junior";
 
   return (
     <section
-      className={`${aboutStyles.section.base} ${aboutStyles.section[currentStage]}`}
+      className={`${aboutStyles.section.base} ${aboutStyles.section[backgroundStage]}`}
     >
       <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
         <div>
@@ -36,7 +34,7 @@ export default function AboutSection({
 
           {showTitle && (
             <h1
-              className={`${aboutStyles.title.base} ${aboutStyles.title[currentStage]}`}
+              className={`${aboutStyles.title.base} ${aboutStyles.title[titleStage]}`}
             >
               We build digital products for growing companies
             </h1>
@@ -44,7 +42,7 @@ export default function AboutSection({
 
           {showDescription && (
             <p
-              className={`${aboutStyles.description.base} ${aboutStyles.description[currentStage]}`}
+              className={`${aboutStyles.description.base} ${aboutStyles.description[descriptionStage]}`}
             >
               We are a tech development company that helps businesses create
               modern websites, web applications, and simple digital tools for
@@ -54,7 +52,7 @@ export default function AboutSection({
 
           {showButton && (
             <button
-              className={`${aboutStyles.button.base} ${aboutStyles.button[currentStage]}`}
+              className={`${aboutStyles.button.base} ${aboutStyles.button[buttonStage]}`}
             >
               Start a project
             </button>
@@ -62,7 +60,11 @@ export default function AboutSection({
         </div>
 
         {showPhoto && (
-          <div className="overflow-hidden rounded-2xl border border-white/20">
+          <div
+            className={`overflow-hidden border border-white/20 transition-all duration-1000 ${
+              photoStage === "middle" ? "rounded-2xl shadow-xl" : "rounded-none"
+            }`}
+          >
             <img
               src="/about_us.png"
               alt="Team working on a digital product"

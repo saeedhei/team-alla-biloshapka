@@ -30,6 +30,11 @@ export const aboutAnimationScript = `
       We build digital products for growing companies
     </h1>
 
+    <p className="about-description text-lg leading-8">
+      We are a tech development company that helps businesses create modern
+      websites, web applications, and simple digital tools for everyday work.
+    </p>
+
     <button className="about-button rounded-xl bg-cyan-500">
       Start a project
     </button>
