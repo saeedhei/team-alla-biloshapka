@@ -19,7 +19,7 @@ export const aboutAnimationScript = `
 </button>
   </div>
 
-  <img className="about-photo" src="/about_us.png" />
+  <img className="about-photo h-[300px] w-[300px]" src="/about_us.png" />
 </section>
 
 // MIDDLE
@@ -40,7 +40,7 @@ export const aboutAnimationScript = `
 </button>
   </div>
 
-  <img className="about-photo rounded-2xl object-cover" src="/about_us.png" />
+  <img className="about-photo h-[460px] w-full rounded-3xl object-cover" src="/about_us.png" />
 </section>
 
 // SENIOR

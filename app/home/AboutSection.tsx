@@ -11,7 +11,6 @@ export default function AboutSection({
   animationStep,
   visualStyleStep,
 }: AboutSectionProps) {
-
   const showTitle = animationStep >= 1;
   const showEyebrow = animationStep >= 2;
   const showDescription = animationStep >= 3;
@@ -28,7 +27,7 @@ export default function AboutSection({
     <section
       className={`${aboutStyles.section.base} ${aboutStyles.section[backgroundStage]}`}
     >
-      <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
         <div>
           {showEyebrow && <p className={aboutStyles.eyebrow}>About Us</p>}
 
@@ -61,14 +60,16 @@ export default function AboutSection({
 
         {showPhoto && (
           <div
-            className={`overflow-hidden border border-white/20 transition-all duration-1000 ${
-              photoStage === "middle" ? "rounded-2xl shadow-xl" : "rounded-none"
+            className={`justify-self-end overflow-hidden border transition-all duration-1000 ${
+              photoStage === "middle"
+                ? "h-[460px] w-full max-w-[620px] rounded-3xl border-white/40 shadow-2xl"
+                : "h-[300px] w-full max-w-[520px] rounded-xl border-white/20"
             }`}
           >
             <img
               src="/about_us.png"
               alt="Team working on a digital product"
-              className="h-80 w-full object-cover"
+              className="h-full w-full object-cover transition-all duration-1000"
             />
           </div>
         )}
