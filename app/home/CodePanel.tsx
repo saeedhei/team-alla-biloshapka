@@ -1,10 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { aboutAnimationScript } from "./animation/aboutAnimationScript";
-import { ABOUT_ANIMATION_EVENTS } from "./animation/aboutAnimationEvents";
-
-const fullCode = aboutAnimationScript;
 
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
@@ -14,105 +10,175 @@ type CodePanelProps = {
 
 type Stage = "junior" | "middle" | "senior";
 
-function renderHighlightedCode(code: string) {
-  const parts = code.split(
-    /(className="[^"]*"|src="[^"]*"|alt="[^"]*"|<\/?[a-zA-Z][a-zA-Z0-9]*|\/?>|\/\/[^\n]*)/g,
+type AboutElement =
+  | "section"
+  | "label"
+  | "title"
+  | "description"
+  | "button"
+  | "photo";
+
+type AboutClasses = Record<AboutElement, string>;
+
+type TimelineItem = {
+  time: number;
+  stage: Stage;
+  element: AboutElement;
+};
+
+const emptyClasses: AboutClasses = {
+  section: "",
+  label: "",
+  title: "",
+  description: "",
+  button: "",
+  photo: "",
+};
+
+const aboutClassStages: Record<Stage, AboutClasses> = {
+  junior: {
+    section:
+      "grid min-h-[420px] grid-cols-1 items-center gap-8 rounded-2xl bg-white p-8 text-slate-900 md:grid-cols-[1.2fr_1fr]",
+    label:
+      "mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-slate-500",
+    title: "mb-4 text-2xl font-bold leading-tight text-slate-900",
+    description: "mb-6 max-w-xl text-sm leading-6 text-slate-600",
+    button:
+      "mx-auto rounded-md bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-900",
+    photo:
+      "h-52 w-52 justify-self-center rounded-md object-cover shadow-md",
+  },
+
+  middle: {
+    section:
+      "grid min-h-[420px] grid-cols-1 items-center gap-8 rounded-3xl bg-slate-900 p-10 text-white md:grid-cols-[1.2fr_1fr]",
+    label:
+      "mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-cyan-300",
+    title: "mb-5 text-4xl font-bold leading-tight text-white",
+    description: "mb-7 max-w-xl text-base leading-7 text-slate-300",
+    button:
+      "rounded-xl bg-blue-500 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-500/25",
+    photo:
+      "h-80 w-64 justify-self-center rounded-3xl object-cover shadow-xl",
+  },
+
+  senior: {
+    section:
+      "grid min-h-[420px] grid-cols-1 items-center gap-8 rounded-[2rem] bg-gradient-to-br from-slate-950 via-slate-900 to-cyan-950 p-10 text-white shadow-2xl shadow-cyan-500/20 md:grid-cols-[1.2fr_1fr]",
+    label:
+      "mb-3 text-sm font-semibold uppercase tracking-[0.35em] text-cyan-300",
+    title:
+      "mb-5 bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-5xl font-bold leading-tight text-transparent drop-shadow-lg",
+    description: "mb-8 max-w-xl text-lg leading-8 text-slate-200",
+    button:
+      "rounded-2xl bg-cyan-400 px-7 py-3 text-sm font-bold text-slate-950 shadow-lg shadow-cyan-400/30",
+    photo:
+      "h-80 w-64 justify-self-center rounded-[2rem] object-cover shadow-2xl shadow-cyan-400/30 ring-4 ring-cyan-300/40",
+  },
+};
+
+const aboutClassTimeline: TimelineItem[] = [
+  // JUNIOR
+  { time: 1, stage: "junior", element: "section" },
+  { time: 4, stage: "junior", element: "label" },
+  { time: 6, stage: "junior", element: "title" },
+  { time: 8, stage: "junior", element: "description" },
+  { time: 11, stage: "junior", element: "button" },
+  { time: 14, stage: "junior", element: "photo" },
+
+  // MIDDLE
+  { time: 20, stage: "middle", element: "section" },
+  { time: 22, stage: "middle", element: "label" },
+  { time: 24, stage: "middle", element: "title" },
+  { time: 26, stage: "middle", element: "description" },
+  { time: 28, stage: "middle", element: "button" },
+  { time: 30, stage: "middle", element: "photo" },
+
+  // SENIOR
+  { time: 36, stage: "senior", element: "section" },
+  { time: 38, stage: "senior", element: "label" },
+  { time: 40, stage: "senior", element: "title" },
+  { time: 42, stage: "senior", element: "description" },
+  { time: 44, stage: "senior", element: "button" },
+  { time: 46, stage: "senior", element: "photo" },
+];
+
+const typingSpeed = 18;
+const erasingSpeed = 6;
+
+type AnimatedClassNameProps = {
+  value: string;
+  isActive: boolean;
+};
+
+function AnimatedClassName({ value, isActive }: AnimatedClassNameProps) {
+  const [displayedValue, setDisplayedValue] = useState(value);
+
+  useEffect(() => {
+    let timeoutId: number;
+    let cancelled = false;
+
+    const eraseText = (text: string) => {
+      if (cancelled) return;
+
+      if (text.length === 0) {
+        typeText("");
+        return;
+      }
+
+      timeoutId = window.setTimeout(() => {
+        const nextText = text.slice(0, -1);
+        setDisplayedValue(nextText);
+        eraseText(nextText);
+      }, erasingSpeed);
+    };
+
+    const typeText = (text: string) => {
+      if (cancelled) return;
+
+      if (text.length === value.length) {
+        return;
+      }
+
+      timeoutId = window.setTimeout(() => {
+        const nextText = value.slice(0, text.length + 1);
+        setDisplayedValue(nextText);
+        typeText(nextText);
+      }, typingSpeed);
+    };
+
+    eraseText(displayedValue);
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, [value]);
+
+  return (
+    <>
+      {displayedValue}
+      {isActive ? <span className="text-white">|</span> : null}
+    </>
   );
-
-  return parts.map((part, index) => {
-    if (!part) return null;
-
-    if (part.startsWith("//")) {
-      return (
-        <span key={index} className="text-green-400">
-          {part}
-        </span>
-      );
-    }
-
-    if (/^<\/?[a-zA-Z]/.test(part)) {
-      return (
-        <span key={index} className="text-fuchsia-400">
-          {part}
-        </span>
-      );
-    }
-
-    if (part.startsWith('className="')) {
-      const classValue = part.slice('className="'.length, -1);
-
-      return (
-        <span key={index}>
-          <span className="text-slate-300">className=</span>
-          <span className="text-slate-400">"</span>
-          <span className="text-sky-400">{classValue}</span>
-          <span className="text-slate-400">"</span>
-        </span>
-      );
-    }
-
-    if (part.startsWith('src="')) {
-      const srcValue = part.slice('src="'.length, -1);
-
-      return (
-        <span key={index}>
-          <span className="text-slate-300">src=</span>
-          <span className="text-slate-400">"</span>
-          <span className="text-amber-300">{srcValue}</span>
-          <span className="text-slate-400">"</span>
-        </span>
-      );
-    }
-
-    if (part.startsWith('alt="')) {
-      const altValue = part.slice('alt="'.length, -1);
-
-      return (
-        <span key={index}>
-          <span className="text-slate-300">alt=</span>
-          <span className="text-slate-400">"</span>
-          <span className="text-amber-300">{altValue}</span>
-          <span className="text-slate-400">"</span>
-        </span>
-      );
-    }
-
-    if (part === ">" || part === "/>") {
-      return (
-        <span key={index} className="text-slate-300">
-          {part}
-        </span>
-      );
-    }
-
-    return (
-      <span key={index} className="text-green-400">
-        {part}
-      </span>
-    );
-  });
 }
 
-function getNextTypingIndex(code: string, currentIndex: number) {
-  const previousChar = code[currentIndex - 1];
+function getAnimationStep(element: AboutElement) {
+  if (element === "photo") return 5;
+  if (element === "button") return 4;
+  if (element === "description") return 3;
+  if (element === "title") return 2;
 
-  if (previousChar !== ">") {
-    return currentIndex + 1;
-  }
+  return 1;
+}
 
-  const nextTagIndex = code.indexOf("<", currentIndex);
+function getVisualStyleStep(element: AboutElement) {
+  if (element === "photo") return 5;
+  if (element === "button") return 4;
+  if (element === "description") return 3;
+  if (element === "title") return 2;
 
-  if (nextTagIndex === -1) {
-    return currentIndex + 1;
-  }
-
-  const textContent = code.slice(currentIndex, nextTagIndex);
-
-  if (!textContent.trim()) {
-    return currentIndex + 1;
-  }
-
-  return nextTagIndex;
+  return 1;
 }
 
 export default function CodePanel({
@@ -120,98 +186,65 @@ export default function CodePanel({
   onAnimationStepChange,
   onVisualStyleStepChange,
 }: CodePanelProps) {
-  const [displayedCode, setDisplayedCode] = useState("");
-  const codeContainerRef = useRef<HTMLDivElement>(null);
+  const [currentClasses, setCurrentClasses] =
+    useState<AboutClasses>(emptyClasses);
   const [stage, setStage] = useState<Stage>("junior");
+  const [activeElement, setActiveElement] = useState<AboutElement | null>(null);
 
-  const MIDDLE_STAGE_INDEX = fullCode.indexOf("// MIDDLE");
-  const SENIOR_STAGE_INDEX = fullCode.indexOf("// SENIOR");
-
-  const ABOUT_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.ABOUT);
-  const TITLE_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.TITLE);
-  const DESCRIPTION_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.DESCRIPTION,
-  );
-  const BUTTON_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.BUTTON);
-  const PHOTO_INDEX = fullCode.indexOf(ABOUT_ANIMATION_EVENTS.PHOTO);
-
-  const UPDATE_BACKGROUND_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.UPDATE_BACKGROUND,
-  );
-  const UPDATE_TITLE_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.UPDATE_TITLE,
-  );
-  const UPDATE_DESCRIPTION_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.UPDATE_DESCRIPTION,
-  );
-  const UPDATE_BUTTON_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.UPDATE_BUTTON,
-  );
-  const UPDATE_PHOTO_INDEX = fullCode.indexOf(
-    ABOUT_ANIMATION_EVENTS.UPDATE_PHOTO,
-  );
+  const callbacksRef = useRef({
+    onStageChange,
+    onAnimationStepChange,
+    onVisualStyleStepChange,
+  });
 
   useEffect(() => {
-    let index = 0;
+    callbacksRef.current = {
+      onStageChange,
+      onAnimationStepChange,
+      onVisualStyleStepChange,
+    };
+  }, [onStageChange, onAnimationStepChange, onVisualStyleStepChange]);
 
-    const interval = setInterval(() => {
-      setDisplayedCode(fullCode.slice(0, index));
+  useEffect(() => {
+    callbacksRef.current.onStageChange("junior");
+    callbacksRef.current.onAnimationStepChange(5);
+    callbacksRef.current.onVisualStyleStepChange(0);
 
-      if (PHOTO_INDEX !== -1 && index > PHOTO_INDEX) {
-        onAnimationStepChange(5);
-      } else if (BUTTON_INDEX !== -1 && index > BUTTON_INDEX) {
-        onAnimationStepChange(4);
-      } else if (DESCRIPTION_INDEX !== -1 && index > DESCRIPTION_INDEX) {
-        onAnimationStepChange(3);
-      } else if (TITLE_INDEX !== -1 && index > TITLE_INDEX) {
-        onAnimationStepChange(2);
-      } else if (ABOUT_INDEX !== -1 && index > ABOUT_INDEX) {
-        onAnimationStepChange(1);
-      }
+    const timers = aboutClassTimeline.map((item) => {
+      return window.setTimeout(() => {
+        setStage(item.stage);
+        setActiveElement(item.element);
 
-      if (UPDATE_PHOTO_INDEX !== -1 && index > UPDATE_PHOTO_INDEX) {
-        onVisualStyleStepChange(5);
-      } else if (UPDATE_BUTTON_INDEX !== -1 && index > UPDATE_BUTTON_INDEX) {
-        onVisualStyleStepChange(4);
-      } else if (
-        UPDATE_DESCRIPTION_INDEX !== -1 &&
-        index > UPDATE_DESCRIPTION_INDEX
-      ) {
-        onVisualStyleStepChange(3);
-      } else if (UPDATE_TITLE_INDEX !== -1 && index > UPDATE_TITLE_INDEX) {
-        onVisualStyleStepChange(2);
-      } else if (
-        UPDATE_BACKGROUND_INDEX !== -1 &&
-        index > UPDATE_BACKGROUND_INDEX
-      ) {
-        onVisualStyleStepChange(1);
-      }
+        setCurrentClasses((prev) => ({
+          ...prev,
+          [item.element]: aboutClassStages[item.stage][item.element],
+        }));
 
-      if (index > MIDDLE_STAGE_INDEX) {
-        setStage("middle");
-        onStageChange("middle");
-      }
+        callbacksRef.current.onStageChange(item.stage);
+        callbacksRef.current.onAnimationStepChange(
+          getAnimationStep(item.element),
+        );
 
-      if (index > SENIOR_STAGE_INDEX) {
-        setStage("senior");
-        onStageChange("senior");
-      }
+        if (item.stage === "junior") {
+          callbacksRef.current.onVisualStyleStepChange(0);
+        } else {
+          callbacksRef.current.onVisualStyleStepChange(
+            getVisualStyleStep(item.element),
+          );
+        }
 
-      index = getNextTypingIndex(fullCode, index);
+        window.setTimeout(() => {
+          setActiveElement((currentElement) =>
+            currentElement === item.element ? null : currentElement,
+          );
+        }, 1200);
+      }, item.time * 1000);
+    });
 
-      if (index > fullCode.length) {
-        clearInterval(interval);
-      }
-    }, 50);
-    return () => clearInterval(interval);
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
   }, []);
-
-  useEffect(() => {
-    if (codeContainerRef.current) {
-      codeContainerRef.current.scrollTop =
-        codeContainerRef.current.scrollHeight;
-    }
-  }, [displayedCode]);
 
   const stageLabel = {
     junior: "Junior Developer",
@@ -228,24 +261,137 @@ export default function CodePanel({
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
       <div
-        className={`mb-3 text-sm font-semibold uppercase tracking-wider ${stageColor}`}
+        className={`mb-3 px-4 pt-4 text-sm font-semibold uppercase tracking-wider ${stageColor}`}
       >
         {stageLabel}
       </div>
 
-      {/* TOP BAR */}
       <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
         <div className="h-3 w-3 rounded-full bg-red-500" />
         <div className="h-3 w-3 rounded-full bg-yellow-500" />
         <div className="h-3 w-3 rounded-full bg-green-500" />
       </div>
 
-      {/* CODE AREA */}
-      <div ref={codeContainerRef} className="max-h-[70vh] overflow-y-auto p-4">
-        <pre className="whitespace-pre-wrap font-mono text-sm leading-4">
-          {renderHighlightedCode(displayedCode)}
+      <div className="max-h-[70vh] overflow-y-auto p-4">
+        <pre className="whitespace-pre-wrap font-mono text-sm leading-5">
+          <code>
+            <span className="text-fuchsia-400">{"<section"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.section}
+                isActive={activeElement === "section"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{">"}</span>
+            <br />
 
-          <span className="animate-pulse text-white">█</span>
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"<p"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.label}
+                isActive={activeElement === "label"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{">"}</span>
+            <span className="text-green-400">{"About Us"}</span>
+            <span className="text-fuchsia-400">{"</p>"}</span>
+            <br />
+            <br />
+
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"<h1"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.title}
+                isActive={activeElement === "title"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{">"}</span>
+            <br />
+            <span className="text-green-400">
+              {"    We build digital products"}
+            </span>
+            <br />
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"</h1>"}</span>
+            <br />
+            <br />
+
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"<p"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.description}
+                isActive={activeElement === "description"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{">"}</span>
+            <br />
+            <span className="text-green-400">
+              {
+                "    We create modern, responsive and user-friendly web experiences."
+              }
+            </span>
+            <br />
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"</p>"}</span>
+            <br />
+            <br />
+
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"<button"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.button}
+                isActive={activeElement === "button"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{">"}</span>
+            <span className="text-green-400">{"Learn more"}</span>
+            <span className="text-fuchsia-400">{"</button>"}</span>
+            <br />
+            <br />
+
+            <span>{"  "}</span>
+            <span className="text-fuchsia-400">{"<img"}</span>
+            <span className="text-slate-300">{" className="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-sky-400">
+              <AnimatedClassName
+                value={currentClasses.photo}
+                isActive={activeElement === "photo"}
+              />
+            </span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{" src="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-amber-300">{"/about-photo.jpg"}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{" alt="}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-amber-300">{"About us"}</span>
+            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-300">{" />"}</span>
+            <br />
+
+            <span className="text-fuchsia-400">{"</section>"}</span>
+          </code>
         </pre>
       </div>
     </div>
