@@ -27,7 +27,7 @@ export const aboutStyles = {
   button: {
     base: "mb-8 block px-5 py-3 text-white transition-all duration-1000",
     junior: "mx-auto rounded bg-zinc-900",
-    middle: "ml-0 rounded-xl bg-blue-600 shadow-lg",
+    middle: "ml-0 rounded-xl bg-blue-600 shadow-[inset_5px_0_10px_black]",
     senior: "ml-0 rounded-2xl bg-cyan-500 shadow-2xl shadow-cyan-500/30",
   },
 

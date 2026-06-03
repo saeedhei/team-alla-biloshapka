@@ -87,11 +87,12 @@ export default function AboutSection({
   animationStep,
   visualStyleStep,
 }: AboutSectionProps) {
-  const showTitle = animationStep >= 1;
-  const showEyebrow = animationStep >= 2;
-  const showDescription = animationStep >= 3;
-  const showButton = animationStep >= 4;
-  const showPhoto = animationStep >= 5;
+  
+  const showTitle = true;
+  const showEyebrow = true;
+  const showDescription = true;
+  const showButton = true;
+  const showPhoto = true;
 
   function getStageForStep(requiredStep: number): VisualStage {
     if (stage === "senior") {
