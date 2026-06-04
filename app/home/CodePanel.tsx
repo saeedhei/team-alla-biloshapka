@@ -14,71 +14,13 @@ import {
   emptyClasses,
 } from "./codePanel/codePanelData";
 
+import { AnimatedClassName } from "./codePanel/AnimatedClassName";
+
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
   onAnimationStepChange: (step: number) => void;
   onVisualStyleStepChange: (step: number) => void;
 };
-
-const typingSpeed = 18;
-const erasingSpeed = 6;
-
-type AnimatedClassNameProps = {
-  value: string;
-  isActive: boolean;
-};
-
-function AnimatedClassName({ value, isActive }: AnimatedClassNameProps) {
-  const [displayedValue, setDisplayedValue] = useState(value);
-
-  useEffect(() => {
-    let timeoutId: number;
-    let cancelled = false;
-
-    const eraseText = (text: string) => {
-      if (cancelled) return;
-
-      if (text.length === 0) {
-        typeText("");
-        return;
-      }
-
-      timeoutId = window.setTimeout(() => {
-        const nextText = text.slice(0, -1);
-        setDisplayedValue(nextText);
-        eraseText(nextText);
-      }, erasingSpeed);
-    };
-
-    const typeText = (text: string) => {
-      if (cancelled) return;
-
-      if (text.length === value.length) {
-        return;
-      }
-
-      timeoutId = window.setTimeout(() => {
-        const nextText = value.slice(0, text.length + 1);
-        setDisplayedValue(nextText);
-        typeText(nextText);
-      }, typingSpeed);
-    };
-
-    eraseText(displayedValue);
-
-    return () => {
-      cancelled = true;
-      window.clearTimeout(timeoutId);
-    };
-  }, [value]);
-
-  return (
-    <>
-      {displayedValue}
-      {isActive ? <span className="text-white">|</span> : null}
-    </>
-  );
-}
 
 function getAnimationStep(element: AboutElement) {
   if (element === "photo") return 5;
@@ -194,28 +136,28 @@ export default function CodePanel({
           <code>
             <span className="text-fuchsia-400">{"<section"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.section}
                 isActive={activeElement === "section"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{">"}</span>
             <br />
 
             <span>{"  "}</span>
             <span className="text-fuchsia-400">{"<p"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.label}
                 isActive={activeElement === "label"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{">"}</span>
             <span className="text-green-400">{"About Us"}</span>
             <span className="text-fuchsia-400">{"</p>"}</span>
@@ -225,14 +167,14 @@ export default function CodePanel({
             <span>{"  "}</span>
             <span className="text-fuchsia-400">{"<h1"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.title}
                 isActive={activeElement === "title"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{">"}</span>
             <br />
             <span className="text-green-400">
@@ -247,14 +189,14 @@ export default function CodePanel({
             <span>{"  "}</span>
             <span className="text-fuchsia-400">{"<p"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.description}
                 isActive={activeElement === "description"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{">"}</span>
             <br />
             <span className="text-green-400">
@@ -271,14 +213,14 @@ export default function CodePanel({
             <span>{"  "}</span>
             <span className="text-fuchsia-400">{"<button"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.button}
                 isActive={activeElement === "button"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{">"}</span>
             <span className="text-green-400">{"Learn more"}</span>
             <span className="text-fuchsia-400">{"</button>"}</span>
@@ -288,22 +230,22 @@ export default function CodePanel({
             <span>{"  "}</span>
             <span className="text-fuchsia-400">{"<img"}</span>
             <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-sky-400">
               <AnimatedClassName
                 value={currentClasses.photo}
                 isActive={activeElement === "photo"}
               />
             </span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{" src="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-amber-300">{"/about-photo.jpg"}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{" alt="}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-amber-300">{"About us"}</span>
-            <span className="text-slate-400">{"\""}</span>
+            <span className="text-slate-400">{'"'}</span>
             <span className="text-slate-300">{" />"}</span>
             <br />
 
