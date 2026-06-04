@@ -11,7 +11,6 @@ import type {
 import {
   aboutClassStages,
   aboutClassTimeline,
-  emptyClasses,
 } from "./codePanel/codePanelData";
 
 import { AnimatedClassName } from "./codePanel/AnimatedClassName";
@@ -46,7 +45,7 @@ export default function CodePanel({
   onVisualStyleStepChange,
 }: CodePanelProps) {
   const [currentClasses, setCurrentClasses] =
-    useState<AboutClasses>(emptyClasses);
+    useState<AboutClasses>(aboutClassStages.junior);
   const [stage, setStage] = useState<Stage>("junior");
   const [activeElement, setActiveElement] = useState<AboutElement | null>(null);
 

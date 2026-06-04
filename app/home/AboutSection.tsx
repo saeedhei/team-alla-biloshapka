@@ -10,7 +10,7 @@ type VisualStage = "junior" | "middle" | "senior";
 
 function SeniorTechVisual() {
   return (
-    <div className="relative h-[390px] w-full max-w-[520px] justify-self-end overflow-hidden rounded-[2rem] bg-slate-950 shadow-[0_30px_90px_rgba(8,47,73,0.55)]">
+    <div className="relative h-[500px] w-full max-w-[520px] justify-self-end overflow-hidden rounded-[2rem] bg-slate-950 shadow-[0_30px_90px_rgba(8,47,73,0.55)]">
       <img
         src="/senior-tech-visual.png"
         alt="Premium abstract coding academy visual"

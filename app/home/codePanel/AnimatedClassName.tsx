@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-const typingSpeed = 18;
-const erasingSpeed = 6;
+const typingSpeed = 85;
+const erasingSpeed = 35;
 
 type AnimatedClassNameProps = {
   value: string;
@@ -15,8 +15,23 @@ export function AnimatedClassName({
   isActive,
 }: AnimatedClassNameProps) {
   const [displayedValue, setDisplayedValue] = useState(value);
+  const activeClassRef = useRef<HTMLSpanElement | null>(null);
 
   useEffect(() => {
+    if (!isActive) return;
+
+    activeClassRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
+  }, [isActive]);
+
+  useEffect(() => {
+    if (displayedValue === value) {
+      return;
+    }
+
     let timeoutId: number;
     let cancelled = false;
 
@@ -58,9 +73,11 @@ export function AnimatedClassName({
   }, [value]);
 
   return (
-    <>
+    <span ref={activeClassRef} className="inline">
       {displayedValue}
-      {isActive ? <span className="text-white">|</span> : null}
-    </>
+      {isActive ? (
+        <span className="ml-1 inline-block h-5 w-2 animate-pulse rounded-sm bg-white align-[-3px] shadow-[0_0_16px_rgba(255,255,255,1)]" />
+      ) : null}
+    </span>
   );
 }
