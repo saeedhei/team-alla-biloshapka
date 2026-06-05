@@ -230,7 +230,10 @@ This progression makes the section useful not only as a UI element, but also as 
 
 The project follows a component-based structure.
 
-```txt
+```
+
+
+txt
 my-app/
 ├── app/
 │   ├── api/
