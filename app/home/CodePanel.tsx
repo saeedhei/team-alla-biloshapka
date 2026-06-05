@@ -13,14 +13,16 @@ import {
   aboutClassTimeline,
 } from "./codePanel/codePanelData";
 
-import { AnimatedClassName } from "./codePanel/AnimatedClassName";
-
 import {
   getAnimationStep,
   getVisualStyleStep,
 } from "./codePanel/codePanelHelpers";
 
 import { CodePanelHeader } from "./codePanel/CodePanelHeader";
+import { CodeElementLine } from "./codePanel/CodeElementLine";
+import { CodeClassName } from "./codePanel/CodeClassName";
+import { CodeImageLine } from "./codePanel/CodeImageLine";
+import { CodeOpeningTag } from "./codePanel/CodeOpeningTag";
 
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
@@ -106,129 +108,64 @@ export default function CodePanel({
     senior: "text-sky-400",
   }[stage];
 
+  const codeElementLines = [
+    {
+      tag: "p",
+      element: "label",
+      text: "About Us",
+      multiline: false,
+    },
+    {
+      tag: "h1",
+      element: "title",
+      text: "We build digital products",
+      multiline: true,
+    },
+    {
+      tag: "p",
+      element: "description",
+      text: "We create modern, responsive and user-friendly web experiences.",
+      multiline: true,
+    },
+    {
+      tag: "button",
+      element: "button",
+      text: "Learn more",
+      multiline: false,
+    },
+  ] as const;
+
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
-      
       <CodePanelHeader stageLabel={stageLabel} stageColor={stageColor} />
 
       <div className="max-h-[70vh] overflow-y-auto p-4">
         <pre className="whitespace-pre-wrap font-mono text-sm leading-5">
           <code>
-            <span className="text-fuchsia-400">{"<section"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.section}
-                isActive={activeElement === "section"}
-              />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{">"}</span>
-            <br />
+            <CodeOpeningTag
+              tag="section"
+              classValue={currentClasses.section}
+              isActive={activeElement === "section"}
+            />
 
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"<p"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.label}
-                isActive={activeElement === "label"}
+            {codeElementLines.map((line) => (
+              <CodeElementLine
+                key={line.element}
+                tag={line.tag}
+                element={line.element}
+                text={line.text}
+                classValue={currentClasses[line.element]}
+                isActive={activeElement === line.element}
+                multiline={line.multiline}
               />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{">"}</span>
-            <span className="text-green-400">{"About Us"}</span>
-            <span className="text-fuchsia-400">{"</p>"}</span>
-            <br />
-            <br />
+            ))}
 
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"<h1"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.title}
-                isActive={activeElement === "title"}
-              />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{">"}</span>
-            <br />
-            <span className="text-green-400">
-              {"    We build digital products"}
-            </span>
-            <br />
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"</h1>"}</span>
-            <br />
-            <br />
-
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"<p"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.description}
-                isActive={activeElement === "description"}
-              />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{">"}</span>
-            <br />
-            <span className="text-green-400">
-              {
-                "    We create modern, responsive and user-friendly web experiences."
-              }
-            </span>
-            <br />
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"</p>"}</span>
-            <br />
-            <br />
-
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"<button"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.button}
-                isActive={activeElement === "button"}
-              />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{">"}</span>
-            <span className="text-green-400">{"Learn more"}</span>
-            <span className="text-fuchsia-400">{"</button>"}</span>
-            <br />
-            <br />
-
-            <span>{"  "}</span>
-            <span className="text-fuchsia-400">{"<img"}</span>
-            <span className="text-slate-300">{" className="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-sky-400">
-              <AnimatedClassName
-                value={currentClasses.photo}
-                isActive={activeElement === "photo"}
-              />
-            </span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{" src="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-amber-300">{"/about-photo.jpg"}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{" alt="}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-amber-300">{"About us"}</span>
-            <span className="text-slate-400">{'"'}</span>
-            <span className="text-slate-300">{" />"}</span>
-            <br />
-
+            <CodeImageLine
+              classValue={currentClasses.photo}
+              isActive={activeElement === "photo"}
+              src="/about-photo.jpg"
+              alt="About us"
+            />
             <span className="text-fuchsia-400">{"</section>"}</span>
           </code>
         </pre>
