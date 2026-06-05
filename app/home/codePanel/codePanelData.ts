@@ -31,16 +31,16 @@ export const aboutClassStages: Record<Stage, AboutClasses> = {
 
 export const aboutClassTimeline: TimelineItem[] = [
 { time: 2, stage: "middle", element: "section" },
-{ time: 5, stage: "middle", element: "label" },
-{ time: 9, stage: "middle", element: "title" },
-{ time: 12, stage: "middle", element: "description" },
-{ time: 17, stage: "middle", element: "button" },
-{ time: 21, stage: "middle", element: "photo" },
+{ time: 4, stage: "middle", element: "label" },
+{ time: 7, stage: "middle", element: "title" },
+{ time: 9, stage: "middle", element: "description" },
+{ time: 12, stage: "middle", element: "button" },
+{ time: 15, stage: "middle", element: "photo" },
 
-{ time: 25, stage: "senior", element: "section" },
-{ time: 29, stage: "senior", element: "label" },
-{ time: 33, stage: "senior", element: "title" },
-{ time: 37, stage: "senior", element: "description" },
-{ time: 41, stage: "senior", element: "button" },
-{ time: 45, stage: "senior", element: "photo" },
+{ time: 17, stage: "senior", element: "section" },
+{ time: 20, stage: "senior", element: "label" },
+{ time: 23, stage: "senior", element: "title" },
+{ time: 26, stage: "senior", element: "description" },
+{ time: 29, stage: "senior", element: "button" },
+{ time: 32, stage: "senior", element: "photo" },
 ];

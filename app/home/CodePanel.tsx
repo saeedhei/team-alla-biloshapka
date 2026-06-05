@@ -15,29 +15,16 @@ import {
 
 import { AnimatedClassName } from "./codePanel/AnimatedClassName";
 
+import {
+  getAnimationStep,
+  getVisualStyleStep,
+} from "./codePanel/codePanelHelpers";
+
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
   onAnimationStepChange: (step: number) => void;
   onVisualStyleStepChange: (step: number) => void;
 };
-
-function getAnimationStep(element: AboutElement) {
-  if (element === "photo") return 5;
-  if (element === "button") return 4;
-  if (element === "description") return 3;
-  if (element === "title") return 2;
-
-  return 1;
-}
-
-function getVisualStyleStep(element: AboutElement) {
-  if (element === "photo") return 5;
-  if (element === "button") return 4;
-  if (element === "description") return 3;
-  if (element === "title") return 2;
-
-  return 1;
-}
 
 export default function CodePanel({
   onStageChange,
