@@ -1,102 +1,411 @@
-🛡️ Next.js & CouchDB Authentication System
-This project is a modern, API-first authentication layer built with Next.js (App Router) and CouchDB. The goal is to create a robust system that works seamlessly across Web and Mobile (Native) platforms without relying on built-in database auth or third-party session providers.
+# Next.js Authentication System and Interactive Coding Scene
 
+This project is a modern Next.js application built with a focus on clean architecture, API-first authentication, and interactive frontend presentation.
+
+The project combines two main directions:
+
+- a scalable authentication foundation using Next.js and CouchDB;
+- an animated coding scene that demonstrates how a UI can evolve from a simple Junior-level implementation to a more polished Senior-level result.
+
+The application is developed step by step through feature branches and pull requests.
+
+---
+
+## Project Purpose
+
+The main goal of this project is to build a practical, portfolio-ready Next.js application that demonstrates both backend architecture and frontend presentation skills.
+
+The project focuses on:
+
+- API-first authentication;
+- secure user registration and login;
+- CouchDB integration;
+- local development with Docker;
+- email testing with MailDev;
+- protected routes;
+- reusable component architecture;
+- animated frontend logic;
+- visual storytelling through code-driven UI changes.
+
+The application is designed in a way that can later support both web and mobile clients.
+
+---
+
+## Current Status
+
+The project is currently in the foundation and interactive UI development stage.
+
+Already implemented:
+
+- CouchDB setup with Docker;
+- basic project structure;
+- user registration;
+- password hashing;
+- login endpoint;
+- JWT-based authentication;
+- protected dashboard route;
+- local email testing;
+- base frontend layout;
+- interactive typing animation;
+- animated About section with Junior, Middle, and Senior visual stages.
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- Next.js 15+
+- React
+- TypeScript
+- Tailwind CSS
+- Next.js App Router
+
+### Backend
+
+- Next.js API routes
+- CouchDB
+- nano CouchDB client
+- JWT authentication
+- bcrypt password hashing
+- middleware-based route protection
+
+### Email and Local Development
+
+- Nodemailer
+- MailDev
+- Docker
+- Docker Compose
+- pnpm
+
+---
+
+## Main Features
+
+### Authentication Foundation
+
+The project includes a basic authentication system built with Next.js API routes.
+
+Implemented functionality:
+
+- user registration;
+- secure password hashing with bcrypt;
+- user storage in CouchDB;
+- login endpoint;
+- JWT token generation;
+- HTTP-only cookie support;
+- protected dashboard route;
+- middleware-based route guard.
+
+The authentication logic is prepared as an API-first foundation, which makes it easier to extend the project for mobile clients or other frontend applications in the future.
+
+---
+
+### CouchDB Integration
+
+CouchDB is used as the database layer.
+
+Implemented functionality:
+
+- CouchDB runs locally through Docker;
+- the app connects to CouchDB using the nano client;
+- user documents are stored in the database;
+- environment variables are used for database credentials;
+- Docker configuration keeps local setup predictable and repeatable.
+
+---
+
+### Email Testing with MailDev
+
+Local email testing was added to support the registration flow.
+
+Implemented functionality:
+
+- MailDev local SMTP server;
+- Nodemailer transporter configuration;
+- email sending after user registration;
+- successful testing of the local email flow.
+
+This makes it possible to test emails during development without sending real emails to users.
+
+---
+
+### Protected Dashboard
+
+The project includes a protected dashboard page.
+
+Implemented functionality:
+
+- `/dashboard` route;
+- middleware check before access;
+- JWT verification;
+- redirect or access blocking when the user is not authenticated.
+
+This prepares the project for future private user areas.
+
+---
+
+### Interactive Coding Scene
+
+The project includes an animated frontend scene where code is typed on the left side and the UI preview updates on the right side.
+
+Implemented functionality:
+
+- split-screen layout;
+- fake code editor panel;
+- character-by-character typing animation;
+- deleting animation;
+- blinking cursor;
+- cinematic pauses;
+- visual updates synchronized with code changes.
+
+The purpose of this feature is to create a live coding showcase where the user can visually understand how code changes affect the UI.
+
+---
+
+### Animated About Section
+
+The Home page includes an animated About section that demonstrates a Junior → Middle → Senior progression.
+
+The left side shows animated code changes.
+
+The right side shows the visual result of those changes.
+
+Implemented functionality:
+
+- animated About section layout;
+- two-column scene structure;
+- code panel on the left;
+- visual preview on the right;
+- Junior, Middle, and Senior stages;
+- stage-based UI updates;
+- syntax highlighting in the code panel;
+- animated photo behavior;
+- photo size transition;
+- button alignment transition;
+- Senior background image;
+- animated Senior background effects.
+
+---
+
+## Junior, Middle and Senior Progression
+
+The animated About section shows how the same UI can improve step by step.
+
+### Junior Stage
+
+The Junior stage shows a simple version of the section.
+
+It focuses on basic structure and minimal styling.
+
+### Middle Stage
+
+The Middle stage improves the layout and presentation.
+
+It adds:
+
+- better spacing;
+- improved visual structure;
+- photo-based layout;
+- stronger button styling;
+- more polished section design.
+
+### Senior Stage
+
+The Senior stage presents the final premium version of the section.
+
+It adds:
+
+- dark premium background;
+- animated glow effects;
+- stronger visual hierarchy;
+- cleaner final composition;
+- more cinematic presentation.
+
+This progression makes the section useful not only as a UI element, but also as a visual explanation of frontend improvement.
+
+---
+
+## Project Architecture
+
+The project follows a component-based structure.
+
+```txt
 my-app/
-├── 📁 app/                     # Next.js App Router (Routing & Pages)
-│   ├── 📁 api/                 # Server-side API Routes (Backend)
-│   │   └── 📁 auth/            # Authentication Endpoints
-│   │       ├── 📁 login/       # POST: User sign-in & JWT issuance
+├── app/
+│   ├── api/
+│   │   └── auth/
+│   │       ├── login/
 │   │       │   └── route.ts
-│   │       └── 📁 register/    # POST: User registration & Password hashing
+│   │       └── register/
 │   │           └── route.ts
-│   ├── 📁 dashboard/           # Protected UI (Visible only after login)
+│   │
+│   ├── dashboard/
 │   │   └── page.tsx
-│   ├── layout.tsx              # Root Layout (Main wrapper, fonts, metadata)
-│   └── page.tsx                # Landing Page (The entry point)
+│   │
+│   ├── home/
+│   │   ├── page.tsx
+│   │   ├── HomeScene.tsx
+│   │   ├── CodePanel.tsx
+│   │   └── VisualPanel.tsx
+│   │
+│   ├── register/
+│   │   └── page.tsx
+│   │
+│   ├── layout.tsx
+│   └── page.tsx
 │
-├── 📁 lib/                     # Shared Utilities & Configurations
-│   └── couchdb.ts              # CouchDB (Nano) client initialization
+├── components/
+│   ├── Header.tsx
+│   ├── Footer.tsx
+│   └── RegisterPanel.tsx
 │
-├── 📁 public/                  # Static assets (Images, icons, fonts)
+├── lib/
+│   └── couchdb.ts
 │
-├── 📄 .env.local               # Environment Variables (Secrets - ignored by Git)
-├── 📄 .gitignore               # List of files to be excluded from version control
-├── 📄 middleware.ts            # Global Auth Guard (Request interception)
-├── 📄 next.config.ts           # Next.js framework configuration
-├── 📄 package.json             # Project dependencies and scripts
-├── 📄 README.md                # Technical documentation (The project's face)
-└── 📄 tsconfig.json            # TypeScript compiler configuration
+├── public/
+│   └── photo.jpg
+│
+├── middleware.ts
+├── docker-compose.yml
+├── package.json
+├── README.md
+└── tsconfig.json
+```
 
-🚀 Current Status: Phase 1 (Foundation)
-We have successfully implemented the core authentication flow focusing on security and scalability.
+---
 
-What has been done:
-Database Integration: CouchDB is deployed via Docker and connected to the Next.js app using nano.
+## Refactoring and Code Quality
 
-Secure Registration:
+Several refactoring steps were completed to keep the project easier to read, maintain, and extend.
 
-Passwords are encrypted using bcrypt (10 salt rounds).
+Completed refactoring:
 
-User documents are indexed by email as _id to ensure uniqueness.
+- extracted code panel data;
+- extracted animation helper logic;
+- extracted reusable code panel components;
+- separated Senior background effects;
+- separated About photo logic;
+- removed unused animation files;
+- removed unused visual code;
+- removed unused image assets;
+- added short comments for staged visual logic.
 
-Token-Based Login:
+Reusable extracted components include:
 
-Implemented a /api/auth/login endpoint.
+- `AnimatedClassName`
+- `CodePanelHeader`
+- `CodeClassName`
+- `CodeElementLine`
+- `CodeImageLine`
 
-Generates JWT (JSON Web Tokens) using the jose library.
+These changes make the animation system cleaner and reduce the amount of logic inside one large component.
 
-Security Headers:
+---
 
-JWTs are currently issued via HTTP-Only, SameSite: Strict cookies to protect against XSS and CSRF.
+## Development Progress
 
-Route Protection:
+The project was developed through several feature branches.
 
-A global Middleware intercepts requests to /dashboard/*.
+Completed development steps:
 
-It performs real-time JWT verification before allowing access.
+1. Initial CouchDB setup with Docker.
+2. Basic project structure.
+3. MailDev and Nodemailer integration.
+4. Interactive Tailwind typing animation.
+5. Base Home scene architecture.
+6. Animated About section.
+7. Junior, Middle, and Senior visual stages.
+8. Code-driven visual updates.
+9. Photo-based About section layout.
+10. Senior background effects.
+11. Refactoring of animation and visual components.
 
-API-First Design: The backend logic is decoupled from the UI, making it ready for mobile integration.
+---
 
-🛠 Tech Stack
-Framework: Next.js 15+ (App Router)
+## Testing
 
-Language: TypeScript
+The project was tested locally during development.
 
-Database: CouchDB 3.4.2 (Dockerized)
+Checked functionality:
 
-Security: JWT (jose), Bcrypt, Middleware protection
+- CouchDB starts correctly with Docker;
+- the app connects to CouchDB;
+- registration endpoint works;
+- passwords are hashed;
+- login endpoint works;
+- JWT token is generated;
+- protected dashboard route is guarded by middleware;
+- MailDev receives local test emails;
+- typing animation works in the browser;
+- visual preview updates according to the code animation;
+- Junior, Middle, and Senior stages work correctly;
+- Senior background appears at the correct stage;
+- refactored components continue to work after file splitting.
 
-📅 Roadmap: Phase 2 (Advanced Auth Architecture)
-Following the mentor's requirements, the next session will focus on:
+---
 
-Dual-Token System:
+## Local Setup
 
-Switch to Short-lived Access Tokens (15 min) for security.
+### 1. Clone the repository
 
-Implement Long-lived Refresh Tokens for persistent sessions.
+```bash
+git clone <repository-url>
+```
 
-Session Management:
+### 2. Open the project folder
 
-Create a sessions collection in CouchDB.
+```bash
+cd my-app
+```
 
-Track active devices/sessions (One refresh token per device).
+### 3. Install dependencies
 
-Token Rotation:
+```bash
+pnpm install
+```
 
-Add a /api/auth/refresh endpoint to renew access tokens without re-logging.
+### 4. Create environment file
 
-Advanced Security:
+Create a `.env.local` file in the root of the project.
 
-Implement Bearer Token support in headers (for mobile apps).
+Example:
 
-Device-aware logout (Ability to revoke specific sessions).
+```env
+COUCHDB_USER=admin
+COUCHDB_PASSWORD=password
+JWT_SECRET=your-secret-key
+```
 
-📦 Infrastructure
-The project uses Docker for local development.
+The real values should not be committed to GitHub.
 
-CouchDB Configuration:
+### 5. Start CouchDB
 
-YAML
+```bash
+docker-compose up -d
+```
+
+### 6. Run the development server
+
+```bash
+pnpm dev
+```
+
+### 7. Open the app in the browser
+
+```txt
+http://localhost:3000
+```
+
+---
+
+## Docker Configuration
+
+The project uses Docker for local CouchDB setup.
+
+Example configuration:
+
+```yaml
 services:
   couchdb:
     container_name: next-couchdb
@@ -109,11 +418,107 @@ services:
     volumes:
       - couchdb_data:/opt/couchdb/data
     restart: always
-How to Run
-Start Database: docker-compose up -d
 
-Install Deps: pnpm install
+volumes:
+  couchdb_data:
+```
 
-Run App: pnpm dev
+---
 
-Test: Access http://localhost:3000 and try navigating to /dashboard.
+## Available Scripts
+
+Install dependencies:
+
+```bash
+pnpm install
+```
+
+Run the development server:
+
+```bash
+pnpm dev
+```
+
+Start Docker services:
+
+```bash
+docker-compose up -d
+```
+
+Stop Docker services:
+
+```bash
+docker-compose down
+```
+
+---
+
+## Roadmap
+
+### Advanced Authentication
+
+Planned improvements:
+
+- add short-lived access tokens;
+- add long-lived refresh tokens;
+- add refresh token rotation;
+- add `/api/auth/refresh` endpoint;
+- create a sessions collection in CouchDB;
+- track active user sessions;
+- support one refresh token per device;
+- add device-aware logout;
+- add the ability to revoke specific sessions.
+
+### Mobile-Ready API Support
+
+Planned improvements:
+
+- add Bearer Token support;
+- prepare authentication flow for mobile clients;
+- separate browser cookie flow from mobile token flow.
+
+### Frontend Improvements
+
+Planned improvements:
+
+- improve animation timing;
+- polish the final Senior stage;
+- improve responsive behavior;
+- continue reducing duplicated code;
+- keep visual changes synchronized with code animation.
+
+---
+
+## What This Project Demonstrates
+
+This project demonstrates practical experience with:
+
+- Next.js App Router;
+- TypeScript;
+- API routes;
+- middleware;
+- authentication flow;
+- JWT handling;
+- password hashing;
+- CouchDB integration;
+- Docker-based local development;
+- email testing with MailDev;
+- component-based frontend architecture;
+- Tailwind CSS;
+- animated UI logic;
+- refactoring;
+- pull request based development.
+
+---
+
+## Summary
+
+This project started as a Next.js authentication system and grew into a broader full-stack learning project.
+
+It now includes both backend foundation and frontend visual storytelling.
+
+The backend part demonstrates API-first authentication with CouchDB.
+
+The frontend part demonstrates an interactive coding scene where the UI improves step by step from Junior to Middle to Senior level.
+
+The project is still in active development and will continue to grow toward a more complete authentication architecture and a more polished portfolio presentation.
