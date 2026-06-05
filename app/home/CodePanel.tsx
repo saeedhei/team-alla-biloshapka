@@ -55,13 +55,31 @@ export default function CodePanel({
     };
   }, [onStageChange, onAnimationStepChange, onVisualStyleStepChange]);
 
-  useEffect(() => {
+useEffect(() => {
+  const timers: number[] = [];
+
+  const lastTimelineTime = Math.max(
+    ...aboutClassTimeline.map((item) => item.time),
+  );
+
+  const loopDelay = 5000;
+  const loopDuration = lastTimelineTime * 1000 + loopDelay;
+
+  function resetToJunior() {
+    setStage("junior");
+    setActiveElement(null);
+    setCurrentClasses(aboutClassStages.junior);
+
     callbacksRef.current.onStageChange("junior");
     callbacksRef.current.onAnimationStepChange(5);
     callbacksRef.current.onVisualStyleStepChange(0);
+  }
 
-    const timers = aboutClassTimeline.map((item) => {
-      return window.setTimeout(() => {
+  function runTimelineCycle() {
+    resetToJunior();
+
+    aboutClassTimeline.forEach((item) => {
+      const timer = window.setTimeout(() => {
         setStage(item.stage);
         setActiveElement(item.element);
 
@@ -83,18 +101,28 @@ export default function CodePanel({
           );
         }
 
-        window.setTimeout(() => {
+        const activeElementTimer = window.setTimeout(() => {
           setActiveElement((currentElement) =>
             currentElement === item.element ? null : currentElement,
           );
         }, 1200);
-      }, item.time * 1000);
-    });
 
-    return () => {
-      timers.forEach((timer) => window.clearTimeout(timer));
-    };
-  }, []);
+        timers.push(activeElementTimer);
+      }, item.time * 1000);
+
+      timers.push(timer);
+    });
+  }
+
+  runTimelineCycle();
+
+  const loopTimer = window.setInterval(runTimelineCycle, loopDuration);
+
+  return () => {
+    window.clearInterval(loopTimer);
+    timers.forEach((timer) => window.clearTimeout(timer));
+  };
+}, []);
 
   const stageLabel = {
     junior: "Junior Developer",
