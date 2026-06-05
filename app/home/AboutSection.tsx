@@ -1,4 +1,5 @@
 import { aboutStyles } from "./aboutStyles";
+import SeniorBackgroundEffects from "./SeniorBackgroundEffects";
 
 type AboutSectionProps = {
   stage: string;
@@ -87,7 +88,6 @@ export default function AboutSection({
   animationStep,
   visualStyleStep,
 }: AboutSectionProps) {
-  
   const showTitle = true;
   const showEyebrow = true;
   const showDescription = true;
@@ -106,7 +106,14 @@ export default function AboutSection({
     return "junior";
   }
 
-  const backgroundStage = getStageForStep(1);
+  const isSeniorStage = stage === "senior";
+
+  const shouldHideMiddlePhotoOnSeniorStart =
+    isSeniorStage && visualStyleStep < 5;
+
+  const backgroundStage: VisualStage =
+    isSeniorStage && visualStyleStep < 2 ? "middle" : getStageForStep(1);
+
   const eyebrowStage = getStageForStep(2);
   const titleStage = getStageForStep(2);
   const descriptionStage = getStageForStep(3);
@@ -114,8 +121,7 @@ export default function AboutSection({
   const photoStage = getStageForStep(5);
 
   const seniorSectionStyles =
-    "relative overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(56,189,248,0.22),_transparent_34%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.2),_transparent_34%),linear-gradient(135deg,_#020617_0%,_#0f172a_48%,_#111827_100%)] text-white shadow-2xl shadow-sky-950/40";
-
+    "relative overflow-hidden bg-[url('/senior-bg.png')] bg-cover bg-center text-white shadow-2xl shadow-sky-950/40";
   const seniorEyebrowStyles =
     "text-cyan-200 drop-shadow-[0_0_12px_rgba(103,232,249,0.35)]";
 
@@ -154,7 +160,8 @@ export default function AboutSection({
 
   return (
     <section className={`${aboutStyles.section.base} ${sectionStyles}`}>
-      <div className="grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
+      {backgroundStage === "senior" && <SeniorBackgroundEffects />}
+      <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
         <div>
           {showEyebrow && <p className={eyebrowStyles}>About Us</p>}
 
@@ -177,28 +184,75 @@ export default function AboutSection({
           )}
         </div>
 
-        {showPhoto && (
-          <>
-            {photoStage === "senior" ? (
-              <SeniorTechVisual />
-            ) : (
-              <div
-                className={`justify-self-end overflow-hidden border transition-all duration-1000 ${
-                  photoStage === "middle"
-                    ? "h-[460px] w-full max-w-[620px] rounded-3xl border-white/40 shadow-2xl"
-                    : "h-[300px] w-full max-w-[520px] rounded-xl border-white/20"
-                }`}
-              >
-                <img
-                  src="/about_us.png"
-                  alt="Team working on a digital product"
-                  className="h-full w-full object-cover transition-all duration-1000"
-                />
-              </div>
-            )}
-          </>
+        {showPhoto && stage !== "senior" && (
+          <div
+            className={`justify-self-end overflow-hidden border transition-all duration-1000 ${
+              photoStage === "middle"
+                ? "h-[460px] w-full max-w-[620px] rounded-3xl border-white/40 shadow-2xl"
+                : "h-[300px] w-full max-w-[520px] rounded-xl border-white/20"
+            }`}
+          >
+            <img
+              src="/about_us.png"
+              alt="Team working on a digital product"
+              className="h-full w-full object-cover transition-all duration-1000"
+            />
+          </div>
         )}
       </div>
+
+      <style jsx>{`
+        @keyframes seniorTwinkle {
+          0%,
+          100% {
+            opacity: 0.15;
+            transform: scale(0.6);
+          }
+
+          45% {
+            opacity: 1;
+            transform: scale(1.35);
+          }
+
+          70% {
+            opacity: 0.45;
+            transform: scale(0.9);
+          }
+        }
+
+        @keyframes seniorPageShine {
+          0% {
+            transform: translateX(-70%) rotate(12deg);
+            opacity: 0;
+          }
+
+          35% {
+            opacity: 0.9;
+          }
+
+          70% {
+            opacity: 0.7;
+          }
+
+          100% {
+            transform: translateX(330%) rotate(12deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes seniorSparkle {
+          0%,
+          100% {
+            opacity: 0.16;
+            filter: brightness(1);
+          }
+
+          50% {
+            opacity: 0.38;
+            filter: brightness(1.8);
+          }
+        }
+      `}</style>
     </section>
   );
 }
