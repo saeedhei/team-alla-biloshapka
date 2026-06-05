@@ -20,6 +20,8 @@ import {
   getVisualStyleStep,
 } from "./codePanel/codePanelHelpers";
 
+import { CodePanelHeader } from "./codePanel/CodePanelHeader";
+
 type CodePanelProps = {
   onStageChange: (stage: string) => void;
   onAnimationStepChange: (step: number) => void;
@@ -31,8 +33,9 @@ export default function CodePanel({
   onAnimationStepChange,
   onVisualStyleStepChange,
 }: CodePanelProps) {
-  const [currentClasses, setCurrentClasses] =
-    useState<AboutClasses>(aboutClassStages.junior);
+  const [currentClasses, setCurrentClasses] = useState<AboutClasses>(
+    aboutClassStages.junior,
+  );
   const [stage, setStage] = useState<Stage>("junior");
   const [activeElement, setActiveElement] = useState<AboutElement | null>(null);
 
@@ -105,17 +108,8 @@ export default function CodePanel({
 
   return (
     <div className="w-full overflow-hidden rounded-2xl border border-zinc-800 bg-black">
-      <div
-        className={`mb-3 px-4 pt-4 text-sm font-semibold uppercase tracking-wider ${stageColor}`}
-      >
-        {stageLabel}
-      </div>
-
-      <div className="flex items-center gap-2 border-b border-zinc-800 px-4 py-3">
-        <div className="h-3 w-3 rounded-full bg-red-500" />
-        <div className="h-3 w-3 rounded-full bg-yellow-500" />
-        <div className="h-3 w-3 rounded-full bg-green-500" />
-      </div>
+      
+      <CodePanelHeader stageLabel={stageLabel} stageColor={stageColor} />
 
       <div className="max-h-[70vh] overflow-y-auto p-4">
         <pre className="whitespace-pre-wrap font-mono text-sm leading-5">
