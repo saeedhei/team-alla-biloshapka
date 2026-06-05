@@ -1,5 +1,6 @@
 import { aboutStyles } from "./aboutStyles";
 import SeniorBackgroundEffects from "./SeniorBackgroundEffects";
+import AboutPhoto from "./AboutPhoto";
 
 type AboutSectionProps = {
   stage: string;
@@ -13,6 +14,7 @@ export default function AboutSection({
   stage,
   visualStyleStep,
 }: AboutSectionProps) {
+  // Keeps visual upgrades progressive: each UI part changes only after its code line is animated.
   function getStageForStep(requiredStep: number): VisualStage {
     if (stage === "senior") {
       return visualStyleStep >= requiredStep ? "senior" : "middle";
@@ -27,6 +29,7 @@ export default function AboutSection({
 
   const isSeniorStage = stage === "senior";
 
+  // The senior background is delayed to avoid showing it before the text starts upgrading.
   const backgroundStage: VisualStage =
     isSeniorStage && visualStyleStep < 2 ? "middle" : getStageForStep(1);
 
@@ -36,8 +39,10 @@ export default function AboutSection({
   const buttonStage = getStageForStep(4);
   const photoStage = getStageForStep(5);
 
+  // Senior-only Tailwind styles. Junior and Middle styles are stored in aboutStyles.ts.
   const seniorSectionStyles =
     "relative overflow-hidden bg-[url('/senior-bg.png')] bg-cover bg-center text-white shadow-2xl shadow-sky-950/40";
+
   const seniorEyebrowStyles =
     "text-cyan-200 drop-shadow-[0_0_12px_rgba(103,232,249,0.35)]";
 
@@ -77,6 +82,7 @@ export default function AboutSection({
   return (
     <section className={`${aboutStyles.section.base} ${sectionStyles}`}>
       {backgroundStage === "senior" && <SeniorBackgroundEffects />}
+
       <div className="relative z-10 grid items-center gap-10 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <p className={eyebrowStyles}>About Us</p>
@@ -94,21 +100,8 @@ export default function AboutSection({
           <button className={buttonStyles}>Start a project</button>
         </div>
 
-        {stage !== "senior" && (
-          <div
-            className={`justify-self-end overflow-hidden border transition-all duration-1000 ${
-              photoStage === "middle"
-                ? "h-[460px] w-full max-w-[620px] rounded-3xl border-white/40 shadow-2xl"
-                : "h-[300px] w-full max-w-[520px] rounded-xl border-white/20"
-            }`}
-          >
-            <img
-              src="/about_us.png"
-              alt="Team working on a digital product"
-              className="h-full w-full object-cover transition-all duration-1000"
-            />
-          </div>
-        )}
+        {/* Junior and Middle use the regular photo. Senior removes it for a cleaner final layout. */}
+        {stage !== "senior" && <AboutPhoto photoStage={photoStage} />}
       </div>
 
       <style jsx>{`
