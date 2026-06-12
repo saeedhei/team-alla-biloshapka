@@ -1,9 +1,5 @@
-import HomeScene from "@/app/home/HomeScene";
+import { Hero } from "@/features/home/sections/Hero";
 
 export default function Home() {
-  return (
-    <main>
-      <HomeScene />
-    </main>
-  );
+  return <Hero />;
 }
