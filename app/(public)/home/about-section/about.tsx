@@ -32,12 +32,6 @@ export function About() {
             height={460}
             className="h-64 w-full object-cover sm:h-80 lg:h-115"
           />
-          <div className="border-t border-zinc-200 bg-zinc-50 px-4 py-3">
-            <p className="text-sm font-medium text-zinc-900">Project preview</p>
-            <p className="text-sm text-zinc-600">
-              A simple static layout for the junior home section.
-            </p>
-          </div>
         </div>
       </div>
     </section>
