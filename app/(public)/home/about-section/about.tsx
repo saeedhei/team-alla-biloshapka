@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export function About() {
   return (
-    <section className="min-h-[calc(100vh-128px)] bg-white text-zinc-900">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-2 lg:py-16">
+    <section className="about-section-shell bg-white text-zinc-900">
+      <div className="about-grid">
         <div>
           <p className="mb-2 text-sm font-medium text-zinc-500">About Us</p>
 
@@ -30,7 +30,7 @@ export function About() {
             alt="Team working on a digital product"
             width={620}
             height={460}
-            className="h-64 w-full object-cover sm:h-80 lg:h-115"
+            className="about-photo-img"
           />
         </div>
       </div>
