@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export function MidAbout() {
   return (
-    <section className="about-section-shell rounded-2xl bg-blue-950 text-white shadow-xl">
-      <div className="about-grid">
+    <section className="min-h-[calc(100vh-128px)] rounded-2xl bg-blue-950 text-white shadow-xl">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-6 py-12 lg:grid-cols-2 lg:py-16">
         <div>
           <p className="mb-2 text-sm font-medium text-zinc-500">About Us</p>
 
@@ -31,7 +31,7 @@ export function MidAbout() {
             width={620}
             height={460}
             priority
-            className="about-photo-img"
+            className="h-64 w-full object-cover sm:h-80 lg:h-115"
           />
         </div>
       </div>
