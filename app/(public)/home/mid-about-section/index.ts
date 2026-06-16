@@ -1,0 +1,1 @@
+export { MidAbout } from "./about";
